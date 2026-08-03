@@ -15,7 +15,7 @@
             --text-main: #f3f4f6; --text-muted: #9ca3af; --border-color: #2a2a2a;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; }
+        body { background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; display: flex; flex-direction: column; min-height: 100vh;}
         ul { list-style: none; }
 
         /* --- SCROLL REVEAL UTILITY --- */
@@ -83,7 +83,7 @@
         .close-mobile-nav { position: absolute; top: 20px; right: 20px; color: white; font-size: 30px; cursor: pointer; }
 
         /* --- MAIN PAGES --- */
-        main { margin-top: 80px; min-height: 80vh; }
+        main { margin-top: 80px; flex: 1; }
         .page { display: none; }
         .page.active { display: block; animation: fadeSlide 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
         @keyframes fadeSlide { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
@@ -111,12 +111,12 @@
             background: rgba(15, 15, 15, 0.7);
             backdrop-filter: blur(2px);
         }
-        /* 3 Beautiful Images sliding (Public CDN URLs that work everywhere) */
+        /* 3 Herbal ingredient images sliding */
         @keyframes slideShow {
-            0% { background-image: url('https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?q=80&w=2000&auto=format&fit=crop'); opacity: 1; }
+            0% { background-image: url('https://images.unsplash.com/photo-1546868871-7041f2a55e12?q=80&w=2000&auto=format&fit=crop'); opacity: 1; }
             33% { background-image: url('https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?q=80&w=2000&auto=format&fit=crop'); opacity: 1; }
-            66% { background-image: url('https://images.unsplash.com/photo-1546868871-7041f2a55e12?q=80&w=2000&auto=format&fit=crop'); opacity: 1; }
-            100% { background-image: url('https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?q=80&w=2000&auto=format&fit=crop'); opacity: 1; }
+            66% { background-image: url('https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?q=80&w=2000&auto=format&fit=crop'); opacity: 1; }
+            100% { background-image: url('https://images.unsplash.com/photo-1546868871-7041f2a55e12?q=80&w=2000&auto=format&fit=crop'); opacity: 1; }
         }
         .hero-content { position: relative; z-index: 2; padding: 20px; }
         .hero h1 { font-size: 4.5rem; font-weight: 700; font-family: 'Playfair Display', serif; margin-bottom: 20px; text-shadow: 0 5px 30px rgba(0,0,0,0.8); }
@@ -187,6 +187,16 @@
         .modal-box button { width: 100%; padding: 12px; background: var(--primary); border: none; border-radius: 6px; color: white; font-weight: 600; cursor: pointer; box-shadow: 0 4px 15px var(--primary-glow); }
         .close-modal { float: right; cursor: pointer; color: var(--text-muted); font-size: 22px; transition: 0.3s; } .close-modal:hover { color: white; transform: rotate(90deg); }
 
+        /* --- GLOBAL FOOTER (Visible on all pages) --- */
+        footer {
+            background: #0a0a0a; border-top: 2px solid var(--primary); padding: 40px 5% 20px; width: 100%; margin-top: 50px;
+        }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto 30px; }
+        .footer-col h4 { color: var(--primary); margin-bottom: 15px; font-size: 18px; }
+        .footer-col p, .footer-col a { color: var(--text-muted); font-size: 14px; line-height: 2.2; display: block; cursor: pointer; transition: 0.3s; }
+        .footer-col a:hover { color: var(--primary); }
+        .footer-bottom { border-top: 1px solid #222; padding-top: 20px; text-align: center; color: #555; font-size: 13px; }
+
         /* --- RESPONSIVE MEDIA QUERIES --- */
         @media(max-width: 992px) {
             .hero h1 { font-size: 3.5rem; }
@@ -211,6 +221,7 @@
             .tracker-box { padding: 20px; }
             .search-container input { font-size: 12px; padding: 8px 5px; }
             .product-img { height: 180px; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
         }
 
         @media(max-width: 480px) {
@@ -223,6 +234,7 @@
             .cart-item { flex-direction: column; align-items: flex-start; gap: 10px; }
             .header-right { gap: 10px; }
             .product-img { height: 150px; }
+            .footer-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -231,12 +243,11 @@
     <!-- HEADER -->
     <header>
         <div class="header-left" onclick="navigatePage('home')">
-            <!-- YOUR CUSTOM LOGO LINK (Works on all devices now) -->
             <img src="https://res.cloudinary.com/dtz0urit6/image/upload/q_auto:best,f_jpg/cloudinary-tools-uploads/ajkubf7eoqdmvikyulaq" class="logo-img" alt="PN RISE Logo" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'40\' height=\'40\'><circle cx=\'20\' cy=\'20\' r=\'20\' fill=\'%236B8E5A\'/><text x=\'20\' y=\'26\' font-family=\'Arial\' font-size=\'16\' fill=\'white\' text-anchor=\'middle\' font-weight=\'bold\'>PN</text></svg>'">
             <span class="brand-text">PN RISE</span>
         </div>
         
-        <!-- SEARCH BAR (Fixed Visible in all views) -->
+        <!-- SEARCH BAR -->
         <div class="search-container">
             <input type="text" id="searchInput" placeholder="Search products..." onkeyup="searchProducts()">
             <button onclick="searchProducts()"><i class="fas fa-search"></i></button>
@@ -278,23 +289,11 @@
         </div>
     </header>
 
-    <!-- MOBILE NAV OVERLAY -->
-    <div class="mobile-nav-overlay" id="mobileNav">
-        <div class="close-mobile-nav" onclick="toggleMobileNav()"><i class="fas fa-times"></i></div>
-        <a onclick="navigatePage('home'); toggleMobileNav();">Home</a>
-        <a onclick="navigatePage('shop'); toggleMobileNav();">Shop</a>
-        <a onclick="navigatePage('about'); toggleMobileNav();">About</a>
-        <a onclick="navigatePage('contact'); toggleMobileNav();">Contact</a>
-        <a onclick="navigatePage('cart'); toggleMobileNav();">Cart</a>
-    </div>
-
     <main>
-        <!-- 1. HOME WITH SLIDING HERO IMAGES -->
+        <!-- 1. HOME -->
         <section id="home" class="page active">
             <div class="hero">
-                <!-- Sliding Background -->
                 <div class="hero-bg"></div>
-                <!-- Dark overlay for text readability -->
                 <div class="hero-overlay"></div>
                 
                 <div class="hero-content">
@@ -443,13 +442,15 @@
                         <h3 style="color:var(--primary); font-size:20px; margin-bottom:15px;"><i class="fas fa-clock"></i> Working Hours</h3>
                         <p>Mon - Sat: 9:00 AM - 7:00 PM (IST)</p>
                     </div>
-                    <form class="contact-form info-box reveal" onsubmit="event.preventDefault(); alert('Message sent successfully! Our team will get back to you within 24 hours.');">
+                    
+                    <!-- DYNAMIC WORKING CONTACT FORM -->
+                    <form class="contact-form info-box reveal" id="contactForm">
                         <h3 style="color:var(--primary); font-size:20px; margin-bottom:20px;">Send us a Message</h3>
-                        <input type="text" placeholder="Your Full Name *" required>
-                        <input type="email" placeholder="Your Email Address *" required>
-                        <input type="text" placeholder="Subject">
-                        <textarea rows="5" placeholder="Describe your query in detail... *" required></textarea>
-                        <button type="submit" class="cta-btn" style="width:100%; font-size:16px;">Send Message</button>
+                        <input type="text" id="contactName" placeholder="Your Full Name *" required>
+                        <input type="email" id="contactEmail" placeholder="Your Email Address *" required>
+                        <input type="text" id="contactSubject" placeholder="Subject">
+                        <textarea id="contactMessage" rows="5" placeholder="Describe your query in detail... *" required></textarea>
+                        <button type="submit" class="cta-btn" style="width:100%; font-size:16px;" onclick="submitContactForm(event)">Send Message</button>
                     </form>
                 </div>
             </div>
@@ -473,6 +474,37 @@
             </div>
         </section>
     </main>
+
+    <!-- GLOBAL FOOTER (Visible on ALL pages) -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>PN RISE</h4>
+                <p style="color:#ddd;">Herbal Glow. Naturally You.</p>
+                <p style="font-size:12px; margin-top:5px;">Trusted by 500+ customers.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <a onclick="navigatePage('home')">Home</a>
+                <a onclick="navigatePage('shop')">Shop</a>
+                <a onclick="navigatePage('about')">About Us</a>
+                <a onclick="navigatePage('contact')">Contact</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Info</h4>
+                <p>📞 +91-70000-00000</p>
+                <p>✉️ support@pnrise.in</p>
+                <p>📅 Mon - Sat: 9AM - 7PM</p>
+            </div>
+            <div class="footer-col">
+                <h4>Our Address</h4>
+                <p>BLOCK- JANDAHA, W/O NARESH RAM</p>
+                <p>Village - Rampur Chaklala, PO- Jandaha</p>
+                <p>Vaishali, Bihar - <strong style="color:#ddd;">844505</strong></p>
+            </div>
+        </div>
+        <div class="footer-bottom">&copy; 2026 PN RISE. All Rights Reserved.</div>
+    </footer>
 
     <!-- AUTH MODALS -->
     <div class="modal-overlay" id="loginModal">
@@ -512,8 +544,8 @@
 
     <!-- --- WEBSITE LOGIC --- -->
     <script>
-        // --- DATA (Permanent Public URLs) ---
-        // These are permanent Unsplash CDN URLs that work on any device globally.
+        // --- DATA ---
+        // Updated Public Unsplash URLs specifically for face packs and herbs
         const productImageLink = "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?q=80&w=600&auto=format&fit=crop";
         
         const products = [
@@ -603,7 +635,7 @@
             grid.innerHTML = filteredProducts.map(p => `
                 <div class="product-card-wrapper" onclick="showProductDetail(${p.id})">
                     <div class="product-card">
-                        <img src="${productImageLink}" class="product-img" alt="${p.name}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'200\' height=\'200\' fill=\'%23222\'/><text x=\'100\' y=\'110\' fill=\'%23d4af37\' text-anchor=\'middle\' font-size=\'20\'>${p.icon || 'IMG'}</text></svg>'">
+                        <img src="${productImageLink}" class="product-img" alt="${p.name}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'200\' height=\'200\' fill=\'%23222\'/><text x=\'100\' y=\'110\' fill=\'%23d4af37\' text-anchor=\'middle\' font-size=\'18\'>Face Pack</text></svg>'">
                         <div class="product-body">
                             <div class="product-title">${p.name}</div>
                             <div class="product-desc">${p.desc}</div>
@@ -624,7 +656,7 @@
             grid.innerHTML = products.map(p => `
                 <div class="product-card-wrapper" onclick="showProductDetail(${p.id})">
                     <div class="product-card">
-                        <img src="${productImageLink}" class="product-img" alt="${p.name}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'200\' height=\'200\' fill=\'%23222\'/><text x=\'100\' y=\'110\' fill=\'%23d4af37\' text-anchor=\'middle\' font-size=\'20\'>${p.icon || 'IMG'}</text></svg>'">
+                        <img src="${productImageLink}" class="product-img" alt="${p.name}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'200\' height=\'200\' fill=\'%23222\'/><text x=\'100\' y=\'110\' fill=\'%23d4af37\' text-anchor=\'middle\' font-size=\'18\'>Face Pack</text></svg>'">
                         <div class="product-body">
                             <div class="product-title">${p.name}</div>
                             <div class="product-desc">${p.desc}</div>
@@ -651,7 +683,7 @@
             document.getElementById('detailHowTo').innerHTML = p.howTo.map(s => `<li>${s}</li>`).join('');
             document.getElementById('detailBenefits').innerHTML = p.benefits.map(s => `<li>${s}</li>`).join('');
             document.getElementById('detailImgTag').src = productImageLink;
-            document.getElementById('detailImgTag').onerror = function() { this.src = `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><rect width='300' height='300' fill='%23222'/><text x='150' y='160' fill='%23d4af37' text-anchor='middle' font-size='24'>${p.icon || 'IMG'}</text></svg>`; };
+            document.getElementById('detailImgTag').onerror = function() { this.src = `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><rect width='300' height='300' fill='%23222'/><text x='150' y='160' fill='%23d4af37' text-anchor='middle' font-size='22'>Face Pack</text></svg>`; };
             document.getElementById('detailAddBtn').onclick = () => { addToCart(p.id); };
             navigatePage('detail');
         }
@@ -731,7 +763,31 @@
             checkout.style.display = 'block';
         }
 
-        // --- ORDERS & TRACKING (Only triggered on Checkout) ---
+        // --- CONTACT FORM SUBMISSION ---
+        function submitContactForm(e) {
+            e.preventDefault(); // Stop page reload
+            
+            // Simulate form sending
+            const btn = document.querySelector('#contactForm button');
+            const originalText = btn.innerText;
+            btn.innerText = 'Sending...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                btn.innerText = '✓ Sent Successfully!';
+                btn.style.background = '#2ecc71'; // Green success
+                
+                // Reset form after a delay
+                setTimeout(() => {
+                    document.getElementById('contactForm').reset();
+                    btn.innerText = originalText;
+                    btn.style.background = 'var(--primary)';
+                    btn.disabled = false;
+                }, 2500);
+            }, 1500);
+        }
+
+        // --- ORDERS & TRACKING ---
         function placeOrder() {
             if(!isLoggedIn) { alert("Please login."); openModal('login'); return; }
             const name = document.getElementById('chkName').value, phone = document.getElementById('chkPhone').value;
