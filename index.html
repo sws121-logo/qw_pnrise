@@ -34,7 +34,7 @@
             background: rgba(15, 15, 15, 0.75); backdrop-filter: blur(15px);
             position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.05);
             padding: 10px 5%; display: flex; justify-content: space-between; align-items: center; gap: 8px;
-            height: 65px; /* Fixed height for stability */
+            height: 65px;
         }
         .header-left { display: flex; align-items: center; gap: 10px; cursor: pointer; flex-shrink: 0; }
         .logo-img { width: 35px; height: 35px; border-radius: 50%; border: 2px solid var(--primary); object-fit: cover; background: #222; }
@@ -54,7 +54,6 @@
         }
         .search-container button:hover { color: var(--primary); }
         
-        /* Desktop nav links (hidden on mobile) */
         .nav-links { display: flex; align-items: center; gap: 25px; }
         .nav-links a { color: var(--text-muted); text-decoration: none; cursor: pointer; transition: 0.3s; font-weight: 500; font-size: 14px; position:relative; }
         .nav-links a:hover, .nav-links a.active { color: var(--primary); text-shadow: 0 0 10px var(--primary-glow); }
@@ -62,7 +61,6 @@
 
         .header-right { display: flex; align-items: center; gap: 10px; position: relative; flex-shrink: 0; }
         
-        /* User menu dropdown */
         .user-menu-wrapper { position: relative; }
         .user-trigger { display: flex; align-items: center; gap: 5px; cursor: pointer; font-weight: 500; font-size: 14px; color: var(--text-muted); }
         .user-trigger:hover { color: var(--primary); }
@@ -89,7 +87,7 @@
         .nav-item:hover { color: var(--primary); }
 
         /* --- MAIN PAGES --- */
-        main { margin-top: 65px; flex: 1; padding-bottom: 70px; /* Space for bottom nav */ }
+        main { margin-top: 65px; flex: 1; padding-bottom: 70px; }
         .page { display: none; }
         .page.active { display: block; animation: pageEntrance 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
         @keyframes pageEntrance { from { opacity: 0; transform: scale(0.98) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
@@ -152,6 +150,20 @@
         .price-row { display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 15px; }
         .price { color: var(--primary); font-weight: 700; font-size: 20px; }
         .old-price { color: var(--text-muted); text-decoration: line-through; font-size: 14px; }
+
+        /* --- DYNAMIC PRODUCT DETAIL PAGE (Specs, How to, Benefits) --- */
+        .detail-wrapper { max-width: 1100px; margin: 40px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start; }
+        .detail-img-box { background: var(--bg-card); border-radius: 24px; padding: 20px; border: 1px solid var(--border-color); display: flex; justify-content: center; align-items: center; min-height: 400px; }
+        .detail-img-box img { width: 100%; max-width: 300px; height: auto; object-fit: contain; background: #161616; border-radius: 12px;}
+        .detail-info h1 { font-size: 2.8rem; font-family: 'Playfair Display', serif; color: var(--primary); margin-bottom: 10px; }
+        .detail-price-row { display: flex; gap: 20px; font-size: 1.2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; margin-bottom: 20px; }
+        .detail-price { font-weight: 700; color: var(--primary); }
+        .detail-old-price { color: var(--text-muted); text-decoration: line-through; }
+        .detail-section { background: var(--glass); padding: 20px; border-radius: 16px; margin: 20px 0; border: 1px solid rgba(255,255,255,0.05); }
+        .detail-section h3 { color: var(--primary); margin-bottom: 10px; }
+        .detail-section ul { list-style: none; padding-left: 5px; }
+        .detail-section ul li { padding: 5px 0; color: var(--text-main); border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .detail-section ul li::before { content: "🌿 "; color: var(--primary); font-weight: bold; }
 
         /* --- CONTACT PAGE --- */
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: stretch; }
@@ -255,9 +267,10 @@
         }
         @media(max-width: 768px) {
             .nav-links { display: none; }
-            .bottom-nav { display: flex; } /* Show bottom nav on mobile */
+            .bottom-nav { display: flex; }
             .hero h1 { font-size: 2.5rem; }
             .grid-2, .product-grid { grid-template-columns: 1fr; }
+            .detail-wrapper { grid-template-columns: 1fr; }
             .footer-grid { grid-template-columns: 1fr 1fr; }
             .flip-container { height: 480px; }
             main { padding-bottom: 80px; }
@@ -308,7 +321,7 @@
         </div>
     </header>
 
-    <!-- MOBILE BOTTOM NAV (Duplicate Cart Removed) -->
+    <!-- MOBILE BOTTOM NAV -->
     <nav class="bottom-nav">
         <div class="nav-item active" onclick="navigatePage('home')">
             <i class="fas fa-home"></i>
@@ -360,7 +373,7 @@
             </div>
         </section>
 
-        <!-- 3. DETAIL -->
+        <!-- 3. DYNAMIC PRODUCT DETAIL VIEW (Restored) -->
         <section id="detail" class="page">
             <div class="detail-wrapper">
                 <div class="detail-img-box" id="detailImgBox">
@@ -372,24 +385,28 @@
                         <span class="detail-price" id="detailPrice">₹599</span>
                         <span class="detail-old-price" id="detailOldPrice">₹799</span>
                     </div>
+                    
                     <div class="detail-section">
                         <h3>📋 Specifications & Ingredients</h3>
                         <ul id="detailSpecs">
                             <li>Loading specifications...</li>
                         </ul>
                     </div>
+
                     <div class="detail-section">
                         <h3>🧴 How to Apply</h3>
                         <ul id="detailHowTo">
                             <li>Loading steps...</li>
                         </ul>
                     </div>
+
                     <div class="detail-section">
                         <h3>✨ Benefits</h3>
                         <ul id="detailBenefits">
                             <li>Loading benefits...</li>
                         </ul>
                     </div>
+                    
                     <button class="cta-btn" style="width:100%; margin-top:20px; font-size:16px;" id="detailAddBtn">Add to Cart</button>
                     <button onclick="navigatePage('shop')" style="background:transparent; border:1px solid var(--border-color); color:white; padding:12px; border-radius:50px; width:100%; margin-top:10px; cursor:pointer; font-weight:600;">← Back to Shop</button>
                 </div>
@@ -585,23 +602,31 @@
 
     <!-- --- WEBSITE LOGIC --- -->
     <script>
+        // --- DATA ---
         const productImageLink = "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?q=80&w=600&auto=format&fit=crop";
         const products = [
-            { id: 1, name: 'Herbal Trio Glow Pack', price: 599, old: 799, desc: 'Beetroot, Neem & Rice.',
-              specs: ['Pure Beetroot Powder', 'Neem Leaf Extracts', 'Rice Flour', 'Suitable for: Acne-prone & Oily Skin'],
-              howTo: ['Mix 1-2 tbsp with rose water or plain water to form a smooth paste.', 'Apply evenly on a cleansed face.', 'Leave it on for 15 to 20 minutes.', 'Wash off with lukewarm water and pat dry.'],
-              benefits: ['Controls acne and purifies pores', 'Gives a natural, pinkish glow', 'Removes dead skin cells', 'Balances excess oil production'] },
-            { id: 2, name: 'Turmeric & Neem Pack', price: 499, old: 649, desc: 'Turmeric, Neem & Rice.',
-              specs: ['Pure Turmeric Root', 'Neem Leaf Powder', 'Rice Flour', 'Suitable for: Dull & Pigmented Skin'],
-              howTo: ['Mix 1-2 tbsp of powder with milk or yogurt.', 'Apply a thick layer on your face.', 'Relax for 15 minutes.', 'Rinse with cold water.'],
-              benefits: ['Fades dark spots and blemishes', 'Antioxidant-rich natural glow', 'Soothes inflammation and redness', 'Brightens skin complexion'] },
-            { id: 3, name: 'Pure Beetroot Blush Pack', price: 450, old: 599, desc: 'Pure Beetroot & Rice.',
-              specs: ['Pure Beetroot Powder', 'Finely Milled Rice Flour', 'Suitable for: Dry & Sensitive Skin'],
-              howTo: ['Mix 1-2 tbsp powder with raw milk.', 'Gently massage onto face.', 'Leave for 15 minutes until dry.', 'Wash off with water and moisturize.'],
-              benefits: ['Deeply hydrates dry skin', 'Provides a natural pink tint', 'Boosts blood circulation', 'Leaves skin soft and supple'] }
+            { 
+                id: 1, name: 'Herbal Trio Glow Pack', price: 599, old: 799, desc: 'Beetroot, Neem & Rice.',
+                specs: ['Pure Beetroot Powder', 'Neem Leaf Extracts', 'Rice Flour', 'Suitable for: Acne-prone & Oily Skin'],
+                howTo: ['Mix 1-2 tbsp with rose water or plain water to form a smooth paste.', 'Apply evenly on a cleansed face.', 'Leave it on for 15 to 20 minutes.', 'Wash off with lukewarm water and pat dry.'],
+                benefits: ['Controls acne and purifies pores', 'Gives a natural, pinkish glow', 'Removes dead skin cells', 'Balances excess oil production']
+            },
+            { 
+                id: 2, name: 'Turmeric & Neem Pack', price: 499, old: 649, desc: 'Turmeric, Neem & Rice.',
+                specs: ['Pure Turmeric Root', 'Neem Leaf Powder', 'Rice Flour', 'Suitable for: Dull & Pigmented Skin'],
+                howTo: ['Mix 1-2 tbsp of powder with milk or yogurt.', 'Apply a thick layer on your face.', 'Relax for 15 minutes.', 'Rinse with cold water.'],
+                benefits: ['Fades dark spots and blemishes', 'Antioxidant-rich natural glow', 'Soothes inflammation and redness', 'Brightens skin complexion']
+            },
+            { 
+                id: 3, name: 'Pure Beetroot Blush Pack', price: 450, old: 599, desc: 'Pure Beetroot & Rice.',
+                specs: ['Pure Beetroot Powder', 'Finely Milled Rice Flour', 'Suitable for: Dry & Sensitive Skin'],
+                howTo: ['Mix 1-2 tbsp powder with raw milk.', 'Gently massage onto face.', 'Leave for 15 minutes until dry.', 'Wash off with water and moisturize.'],
+                benefits: ['Deeply hydrates dry skin', 'Provides a natural pink tint', 'Boosts blood circulation', 'Leaves skin soft and supple']
+            }
         ];
         let cart = []; let isLoggedIn = false; let currentUser = null; let orders = []; let orderCounter = 0;
 
+        // --- INIT ---
         window.onload = function() {
             const storedUser = localStorage.getItem('pn_user');
             if(storedUser) { const u = JSON.parse(storedUser); isLoggedIn = true; currentUser = u; updateUI(u.name, u.email); }
