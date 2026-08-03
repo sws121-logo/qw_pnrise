@@ -33,72 +33,72 @@
         header {
             background: rgba(15, 15, 15, 0.75); backdrop-filter: blur(15px);
             position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.05);
-            padding: 10px 5%; display: flex; justify-content: space-between; align-items: center; gap: 10px;
+            padding: 10px 5%; display: flex; justify-content: space-between; align-items: center; gap: 8px;
+            height: 65px; /* Fixed height for stability */
         }
-        .header-left { display: flex; align-items: center; gap: 12px; cursor: pointer; flex-shrink: 0; }
-        .logo-img { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--primary); object-fit: cover; background: #222; }
-        .brand-text { font-size: 22px; font-weight: 700; color: var(--primary); font-family: 'Playfair Display', serif; letter-spacing: 0.5px; display: none; }
+        .header-left { display: flex; align-items: center; gap: 10px; cursor: pointer; flex-shrink: 0; }
+        .logo-img { width: 35px; height: 35px; border-radius: 50%; border: 2px solid var(--primary); object-fit: cover; background: #222; }
+        .brand-text { font-size: 20px; font-weight: 700; color: var(--primary); font-family: 'Playfair Display', serif; letter-spacing: 0.5px; display: none; }
         
         .search-container {
-            flex: 1; min-width: 60px; display: flex; align-items: center; background: rgba(255,255,255,0.05);
-            border-radius: 30px; padding: 0 15px; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s;
-            margin: 0 5px;
+            flex: 1; display: flex; align-items: center; background: rgba(255,255,255,0.05);
+            border-radius: 30px; padding: 0 10px; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s;
+            height: 40px;
         }
         .search-container:focus-within { border-color: var(--primary); box-shadow: 0 0 15px var(--primary-glow); }
         .search-container input {
-            width: 100%; background: transparent; border: none; padding: 10px 5px; color: white; outline: none; font-size: 14px; min-width: 50px;
+            width: 100%; background: transparent; border: none; padding: 0 5px; color: white; outline: none; font-size: 14px;
         }
         .search-container button {
-            background: transparent; border: none; color: var(--text-muted); cursor: pointer; padding: 5px; transition: 0.3s; flex-shrink: 0;
+            background: transparent; border: none; color: var(--text-muted); cursor: pointer; padding: 5px; transition: 0.3s;
         }
         .search-container button:hover { color: var(--primary); }
         
+        /* Desktop nav links (hidden on mobile) */
         .nav-links { display: flex; align-items: center; gap: 25px; }
         .nav-links a { color: var(--text-muted); text-decoration: none; cursor: pointer; transition: 0.3s; font-weight: 500; font-size: 14px; position:relative; }
         .nav-links a:hover, .nav-links a.active { color: var(--primary); text-shadow: 0 0 10px var(--primary-glow); }
         .nav-links a.active::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 100%; height: 2px; background: var(--primary); box-shadow: 0 0 10px var(--primary-glow); }
 
-        .header-right { display: flex; align-items: center; gap: 15px; position: relative; flex-shrink: 0; }
-        .icon-btn { font-size: 20px; color: var(--text-main); cursor: pointer; transition: 0.3s; position: relative; }
-        .icon-btn:hover { color: var(--primary); transform: scale(1.1); }
-        .badge { position: absolute; top: -8px; right: -10px; background: var(--primary); color: white; border-radius: 50%; padding: 2px 6px; font-size: 10px; font-weight: 700; box-shadow: 0 0 10px var(--primary-glow); }
-
-        /* --- USER DROPDOWN --- */
+        .header-right { display: flex; align-items: center; gap: 10px; position: relative; flex-shrink: 0; }
+        
+        /* User menu dropdown */
         .user-menu-wrapper { position: relative; }
-        .user-trigger { display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 500; font-size: 14px; color: var(--text-muted); }
+        .user-trigger { display: flex; align-items: center; gap: 5px; cursor: pointer; font-weight: 500; font-size: 14px; color: var(--text-muted); }
         .user-trigger:hover { color: var(--primary); }
         .dropdown-menu {
-            position: absolute; top: 45px; right: 0; width: 240px; background: var(--glass);
+            position: absolute; top: 45px; right: 0; width: 220px; background: var(--glass);
             backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; 
             box-shadow: 0 10px 40px rgba(0,0,0,0.5); display: none; overflow: hidden; padding: 10px 0; z-index: 1001;
         }
         .dropdown-menu.open { display: block; animation: fadeDown 0.3s ease; }
         @keyframes fadeDown { from { opacity: 0; transform: translateY(-15px); } to { opacity: 1; transform: translateY(0); } }
-        .dropdown-item { padding: 12px 20px; display: flex; align-items: center; gap: 15px; color: var(--text-main); cursor: pointer; transition: 0.2s; font-size: 14px; }
+        .dropdown-item { padding: 12px 20px; display: flex; align-items: center; gap: 12px; color: var(--text-main); cursor: pointer; transition: 0.2s; font-size: 14px; }
         .dropdown-item:hover { background: rgba(255,255,255,0.05); color: var(--primary); }
 
-        /* --- MOBILE HAMBURGER MENU --- */
-        .hamburger { display: none; cursor: pointer; font-size: 24px; color: var(--text-main); flex-shrink: 0; }
-        .mobile-nav-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.95);
-            z-index: 999; flex-direction: column; justify-content: center; align-items: center; gap: 30px;
+        /* --- MOBILE BOTTOM NAV --- */
+        .bottom-nav {
+            display: none; position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(15px); border-top: 1px solid rgba(255,255,255,0.05); z-index: 1000;
+            padding: 8px 0 env(safe-area-inset-bottom); justify-content: space-around; align-items: center;
         }
-        .mobile-nav-overlay.open { display: flex; }
-        .mobile-nav-overlay a { color: white; font-size: 24px; font-weight: 600; cursor: pointer; transition: 0.3s; }
-        .close-mobile-nav { position: absolute; top: 20px; right: 20px; color: white; font-size: 30px; cursor: pointer; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-muted); cursor: pointer; transition: 0.3s; gap: 3px; padding: 5px; flex: 1;}
+        .nav-item i { font-size: 22px; }
+        .nav-item span { font-size: 10px; font-weight: 500; }
+        .nav-item.active { color: var(--primary); }
+        .nav-item:hover { color: var(--primary); }
 
-        /* --- MAIN PAGES & ANIMATIONS --- */
-        main { margin-top: 80px; flex: 1; }
+        /* --- MAIN PAGES --- */
+        main { margin-top: 65px; flex: 1; padding-bottom: 70px; /* Space for bottom nav */ }
         .page { display: none; }
         .page.active { display: block; animation: pageEntrance 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
         @keyframes pageEntrance { from { opacity: 0; transform: scale(0.98) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
 
         /* --- CONTENT BLOCKS --- */
-        .content-block { padding: 60px 5%; max-width: 1200px; margin: 0 auto; }
-        .section-title { text-align: center; font-size: 2.5rem; font-weight: 700; color: var(--primary); font-family: 'Playfair Display', serif; margin-bottom: 15px; }
-        .section-sub { text-align: center; color: var(--text-muted); margin-bottom: 40px; font-size: 16px; line-height: 1.6; }
+        .content-block { padding: 40px 5%; max-width: 1200px; margin: 0 auto; }
+        .section-title { text-align: center; font-size: 2.2rem; font-weight: 700; color: var(--primary); font-family: 'Playfair Display', serif; margin-bottom: 15px; }
+        .section-sub { text-align: center; color: var(--text-muted); margin-bottom: 30px; font-size: 15px; line-height: 1.6; }
         
-        /* --- DYNAMIC PULSING BUTTON --- */
         .cta-btn { 
             background: var(--primary); border: none; padding: 14px 35px; border-radius: 50px; color: white; font-weight: 600; cursor: pointer; 
             transition: 0.3s; box-shadow: 0 4px 20px var(--primary-glow); position: relative; overflow: hidden;
@@ -112,7 +112,7 @@
 
         /* --- HERO SECTION --- */
         .hero {
-            min-height: 85vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+            min-height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
             position: relative; overflow: hidden; background: #0f0f0f;
         }
         .hero-bg {
@@ -132,12 +132,12 @@
             100% { background-image: url('https://images.unsplash.com/photo-1615486511268-6d3c24e335db?q=80&w=2000&auto=format&fit=crop'); opacity: 1; }
         }
         .hero-content { position: relative; z-index: 2; padding: 20px; }
-        .hero h1 { font-size: 4.5rem; font-weight: 700; font-family: 'Playfair Display', serif; margin-bottom: 20px; text-shadow: 0 5px 30px rgba(0,0,0,0.8); }
+        .hero h1 { font-size: 3.5rem; font-weight: 700; font-family: 'Playfair Display', serif; margin-bottom: 20px; text-shadow: 0 5px 30px rgba(0,0,0,0.8); }
         .hero h1 span { color: var(--primary); text-shadow: 0 0 30px var(--primary-glow); }
-        .hero p { max-width: 600px; opacity: 0.9; margin: 0 auto 40px; font-size: 1.2rem; line-height: 1.6; }
+        .hero p { max-width: 600px; opacity: 0.9; margin: 0 auto 40px; font-size: 1.1rem; line-height: 1.6; }
 
         /* --- SHOP & 3D TILT CARDS --- */
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
         .product-card-wrapper { perspective: 1000px; cursor: pointer; transition: transform 0.3s; }
         .product-card-wrapper:hover { transform: rotateX(3deg) rotateY(3deg) scale(1.02); }
         .product-card {
@@ -145,22 +145,21 @@
             transition: box-shadow 0.3s; text-align: center; position: relative;
         }
         .product-card-wrapper:hover .product-card { box-shadow: 0 20px 50px rgba(0,0,0,0.6); border-color: var(--primary); }
-        .product-img { width: 100%; height: 220px; object-fit: cover; display: block; border-bottom: 1px solid var(--border-color); background: #222;}
+        .product-img { width: 100%; height: 200px; object-fit: cover; display: block; border-bottom: 1px solid var(--border-color); background: #222;}
         .product-body { padding: 20px; }
-        .product-title { font-size: 18px; font-weight: 600; margin-bottom: 5px; }
+        .product-title { font-size: 17px; font-weight: 600; margin-bottom: 5px; }
         .product-desc { color: var(--text-muted); font-size: 13px; margin-bottom: 15px; }
         .price-row { display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 15px; }
         .price { color: var(--primary); font-weight: 700; font-size: 20px; }
         .old-price { color: var(--text-muted); text-decoration: line-through; font-size: 14px; }
 
         /* --- CONTACT PAGE --- */
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: stretch; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: stretch; }
         .info-box { 
-            background: var(--bg-card); padding: 30px; border-radius: 16px; border: 1px solid var(--border-color); 
+            background: var(--bg-card); padding: 25px; border-radius: 16px; border: 1px solid var(--border-color); 
             display: flex; flex-direction: column; justify-content: space-between; transition: 0.3s;
         }
         .info-box:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
-        
         .contact-form input, .contact-form textarea { 
             width: 100%; padding: 12px; margin: 5px 0 15px; background: #0f0f0f; border: 1px solid #333; border-radius: 8px; color: white; transition: 0.3s; font-size: 14px;
         }
@@ -186,9 +185,7 @@
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); 
             z-index: 2000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(8px);
         }
-        .flip-container {
-            perspective: 1000px; width: 100%; max-width: 420px; height: 520px;
-        }
+        .flip-container { perspective: 1000px; width: 100%; max-width: 420px; height: 520px; }
         .flip-inner {
             position: relative; width: 100%; height: 100%; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             transform-style: preserve-3d;
@@ -205,7 +202,6 @@
 
         .flip-front h2, .flip-back h2 { text-align: center; font-size: 1.8rem; color: var(--primary); font-family: 'Playfair Display', serif; margin-bottom: 25px; }
         
-        /* Floating Label Inputs */
         .input-group { position: relative; margin-bottom: 25px; width: 100%; }
         .input-group input {
             width: 100%; padding: 16px 15px 8px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);
@@ -232,6 +228,18 @@
         }
         .close-modal-btn:hover { color: white; transform: rotate(180deg) scale(1.2); }
 
+        /* --- TRACKER MODAL --- */
+        .tracker-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:2000; display:none; justify-content:center; align-items:center; backdrop-filter: blur(8px); }
+        .tracker-box { background: var(--bg-card); width: 90%; max-width: 600px; padding: 30px; border-radius: 16px; border: 1px solid var(--border-color); position: relative; box-shadow: 0 0 60px rgba(0,0,0,0.8); }
+        .tracker-box h2 { font-family:'Playfair Display', serif; color:var(--primary); text-align:center; margin-bottom:10px; }
+        .track-timeline { position: relative; padding-left: 30px; margin-top: 20px; }
+        .track-timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 3px; background: #333; }
+        .track-step-item { position: relative; padding-bottom: 25px; padding-left: 20px; opacity: 0.5; transition: 0.3s; }
+        .track-step-item.completed { opacity: 1; }
+        .track-step-item.active { opacity: 1; }
+        .track-step-item .step-dot { position: absolute; left: -26px; top: 0; width: 18px; height: 18px; border-radius: 50%; background: #333; border: 3px solid #333; z-index: 1; }
+        .track-step-item.completed .step-dot { background: var(--primary); border-color: var(--primary); box-shadow: 0 0 20px var(--primary-glow); }
+
         /* --- FOOTER --- */
         footer { background: #0a0a0a; border-top: 2px solid var(--primary); padding: 40px 5% 20px; width: 100%; margin-top: 50px; }
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto 30px; }
@@ -240,48 +248,50 @@
         .footer-col a:hover { color: var(--primary); }
         .footer-bottom { border-top: 1px solid #222; padding-top: 20px; text-align: center; color: #555; font-size: 13px; }
 
-        /* --- RESPONSIVE --- */
+        /* --- RESPONSIVE MEDIA QUERIES --- */
         @media(max-width: 992px) {
-            .hero h1 { font-size: 3.5rem; }
+            .hero h1 { font-size: 3rem; }
             .brand-text { display: none; }
         }
         @media(max-width: 768px) {
             .nav-links { display: none; }
-            .hamburger { display: block; }
+            .bottom-nav { display: flex; } /* Show bottom nav on mobile */
             .hero h1 { font-size: 2.5rem; }
             .grid-2, .product-grid { grid-template-columns: 1fr; }
             .footer-grid { grid-template-columns: 1fr 1fr; }
             .flip-container { height: 480px; }
+            main { padding-bottom: 80px; }
         }
         @media(max-width: 480px) {
             .hero h1 { font-size: 2rem; }
             .footer-grid { grid-template-columns: 1fr; }
+            .header-left .brand-text { display: none; }
+            .header-right .user-trigger span { display: none; }
         }
     </style>
 </head>
 <body>
 
+    <!-- DESKTOP HEADER -->
     <header>
         <div class="header-left" onclick="navigatePage('home')">
             <img src="https://res.cloudinary.com/dtz0urit6/image/upload/q_auto:best,f_jpg/cloudinary-tools-uploads/ajkubf7eoqdmvikyulaq" class="logo-img" alt="PN RISE Logo" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'40\' height=\'40\'><circle cx=\'20\' cy=\'20\' r=\'20\' fill=\'%236B8E5A\'/><text x=\'20\' y=\'26\' font-family=\'Arial\' font-size=\'16\' fill=\'white\' text-anchor=\'middle\' font-weight=\'bold\'>PN</text></svg>'">
             <span class="brand-text">PN RISE</span>
         </div>
+        
         <div class="search-container">
             <input type="text" id="searchInput" placeholder="Search products..." onkeyup="searchProducts()">
             <button onclick="searchProducts()"><i class="fas fa-search"></i></button>
         </div>
+
         <div class="nav-links">
             <a class="active" onclick="navigatePage('home')">Home</a>
             <a onclick="navigatePage('shop')">Shop</a>
             <a onclick="navigatePage('about')">About</a>
             <a onclick="navigatePage('contact')">Contact</a>
-            <a onclick="navigatePage('cart')"><i class="fas fa-shopping-cart"></i></a>
         </div>
+
         <div class="header-right">
-            <div class="icon-btn" onclick="navigatePage('cart')">
-                <i class="fas fa-shopping-cart"></i>
-                <span class="badge" id="cartCount">0</span>
-            </div>
             <div class="user-menu-wrapper">
                 <div class="user-trigger" id="userTrigger" onclick="toggleDropdown()">
                     <i class="fas fa-user-circle" style="font-size: 22px;"></i>
@@ -295,11 +305,28 @@
                     <div class="dropdown-item" style="color:#ff4757;" onclick="handleAuthClick()"><i class="fas fa-sign-out-alt"></i> Logout</div>
                 </div>
             </div>
-            <div class="hamburger" onclick="toggleMobileNav()">
-                <i class="fas fa-bars"></i>
-            </div>
         </div>
     </header>
+
+    <!-- MOBILE BOTTOM NAV (Duplicate Cart Removed) -->
+    <nav class="bottom-nav">
+        <div class="nav-item active" onclick="navigatePage('home')">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </div>
+        <div class="nav-item" onclick="navigatePage('shop')">
+            <i class="fas fa-store"></i>
+            <span>Shop</span>
+        </div>
+        <div class="nav-item" onclick="navigatePage('cart')">
+            <i class="fas fa-shopping-cart"></i>
+            <span>Cart <span class="badge" id="cartCountMobile" style="background:var(--primary); color:white; border-radius:50%; padding:0 5px; font-size:9px;">0</span></span>
+        </div>
+        <div class="nav-item" onclick="navigatePage('profile')">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+        </div>
+    </nav>
 
     <main>
         <!-- 1. HOME -->
@@ -499,12 +526,9 @@
     <div class="modal-overlay" id="authModal">
         <div class="flip-container" id="flipContainer">
             <div class="flip-inner">
-                
-                <!-- LOGIN SIDE (Front) -->
                 <div class="flip-front">
                     <span class="close-modal-btn" onclick="closeModal()">&times;</span>
                     <h2>Welcome Back</h2>
-                    
                     <div class="input-group">
                         <input type="text" id="loginUser" placeholder=" ">
                         <label>Email or Username</label>
@@ -513,19 +537,14 @@
                         <input type="password" id="loginPass" placeholder=" ">
                         <label>Password</label>
                     </div>
-                    
                     <button class="modal-btn" onclick="handleLogin()">Login</button>
-                    
                     <div class="flip-text">
                         New here? <span onclick="flipCard()">Create Account</span>
                     </div>
                 </div>
-
-                <!-- SIGNUP SIDE (Back) -->
                 <div class="flip-back">
                     <span class="close-modal-btn" onclick="closeModal()">&times;</span>
                     <h2>Join Us</h2>
-                    
                     <div class="input-group">
                         <input type="text" id="signupName" placeholder=" ">
                         <label>Full Name</label>
@@ -542,14 +561,11 @@
                         <input type="password" id="signupPass" placeholder=" ">
                         <label>Password</label>
                     </div>
-                    
                     <button class="modal-btn" onclick="handleSignup()">Sign Up</button>
-                    
                     <div class="flip-text">
                         Already have an account? <span onclick="flipCard()">Login</span>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -593,6 +609,7 @@
             if(storedOrders) { orders = JSON.parse(storedOrders); orderCounter = orders.length; }
             renderShop();
             setTimeout(checkReveal, 500);
+            syncMobileCart();
         };
         
         window.addEventListener('scroll', checkReveal);
@@ -603,14 +620,26 @@
             });
         }
 
+        function syncMobileCart() {
+            const count = document.getElementById('cartCount').innerText;
+            document.getElementById('cartCountMobile').innerText = count;
+        }
+
         function toggleMobileNav() { document.getElementById('mobileNav').classList.toggle('open'); }
         function navigatePage(id) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(id).classList.add('active');
             document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-            const navMap = {'home':0, 'shop':1, 'about':2, 'contact':3, 'cart':4};
+            const navMap = {'home':0, 'shop':1, 'about':2, 'contact':3};
             const navs = document.querySelectorAll('.nav-links a');
             if(navMap[id] !== undefined) navs[navMap[id]].classList.add('active');
+            
+            // Update Mobile Nav
+            document.querySelectorAll('.bottom-nav .nav-item').forEach(el => el.classList.remove('active'));
+            const mobileMap = {'home':0, 'shop':1, 'cart':2, 'profile':3};
+            const mobiles = document.querySelectorAll('.bottom-nav .nav-item');
+            if(mobileMap[id] !== undefined) mobiles[mobileMap[id]].classList.add('active');
+
             if(id === 'cart') renderCart();
             if(id === 'profile') renderOrders();
             document.getElementById('userDropdown').classList.remove('open');
@@ -687,13 +716,10 @@
             } else { openModal(); }
         }
 
-        function flipCard() {
-            document.getElementById('flipContainer').classList.toggle('flipped');
-        }
+        function flipCard() { document.getElementById('flipContainer').classList.toggle('flipped'); }
 
         function openModal() {
             document.getElementById('authModal').style.display = 'flex';
-            // Reset the card to Login side when opening
             document.getElementById('flipContainer').classList.remove('flipped');
         }
         function closeModal() { document.getElementById('authModal').style.display = 'none'; }
@@ -703,8 +729,8 @@
             if(n && e && u && p) {
                 localStorage.setItem('pn_user', JSON.stringify({name:n, email:e, username:u, pass:p}));
                 alert("Account created! Please login."); 
-                flipCard(); // Flip back to Login card
-                document.getElementById('loginUser').value = u; // Auto-fill username
+                flipCard();
+                document.getElementById('loginUser').value = u; 
             } else alert("Please fill all fields.");
         }
 
@@ -733,6 +759,7 @@
             if(cart.some(item => item.id === id)) { alert(`${p.name} is already in your cart!`); return; }
             cart.push(p);
             document.getElementById('cartCount').innerText = cart.length;
+            document.getElementById('cartCountMobile').innerText = cart.length; // Sync mobile cart
             renderCart();
             if(document.getElementById('detail').classList.contains('active')) alert(`${p.name} added to cart!`);
         }
@@ -776,6 +803,7 @@
             localStorage.setItem('pn_orders', JSON.stringify(orders));
             alert(`✅ Order ${orderId} placed! Check Profile -> My Orders to track it.`);
             cart = []; document.getElementById('cartCount').innerText = 0;
+            document.getElementById('cartCountMobile').innerText = 0;
             renderCart(); navigatePage('profile'); renderOrders();
         }
 
