@@ -153,7 +153,7 @@
         .price { color: var(--primary); font-weight: 700; font-size: 20px; }
         .old-price { color: var(--text-muted); text-decoration: line-through; font-size: 14px; }
 
-        /* --- CONTACT PAGE (Exact layout of screenshot) --- */
+        /* --- CONTACT PAGE --- */
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: stretch; }
         .info-box { 
             background: var(--bg-card); padding: 30px; border-radius: 16px; border: 1px solid var(--border-color); 
@@ -181,9 +181,56 @@
         .cart-item:hover { border-color: var(--primary); transform: translateX(5px); }
         .checkout-box { background: var(--glass); backdrop-filter: blur(5px); padding: 25px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); margin-top: 25px; display: none; }
 
-        /* --- MODALS --- */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(6px); }
-        .modal-box { background: var(--bg-card); padding: 30px; border-radius: 16px; width: 90%; max-width: 380px; border: 1px solid var(--border-color); }
+        /* --- 3D FLIP LOGIN/SIGNUP MODALS --- */
+        .modal-overlay { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); 
+            z-index: 2000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(8px);
+        }
+        .flip-container {
+            perspective: 1000px; width: 100%; max-width: 420px; height: 520px;
+        }
+        .flip-inner {
+            position: relative; width: 100%; height: 100%; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+        .flip-container.flipped .flip-inner { transform: rotateY(180deg); }
+        
+        .flip-front, .flip-back {
+            position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+            background: var(--glass); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px; padding: 40px 30px; box-shadow: 0 25px 60px rgba(0,0,0,0.8);
+            display: flex; flex-direction: column; justify-content: center;
+        }
+        .flip-back { transform: rotateY(180deg); }
+
+        .flip-front h2, .flip-back h2 { text-align: center; font-size: 1.8rem; color: var(--primary); font-family: 'Playfair Display', serif; margin-bottom: 25px; }
+        
+        /* Floating Label Inputs */
+        .input-group { position: relative; margin-bottom: 25px; width: 100%; }
+        .input-group input {
+            width: 100%; padding: 16px 15px 8px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px; color: white; font-size: 16px; outline: none; transition: 0.3s;
+        }
+        .input-group input:focus { border-color: var(--primary); box-shadow: 0 0 20px var(--primary-glow); }
+        .input-group label {
+            position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted);
+            font-size: 14px; transition: 0.3s; pointer-events: none;
+        }
+        .input-group input:focus ~ label, .input-group input:not(:placeholder-shown) ~ label {
+            top: 5px; transform: translateY(0); font-size: 11px; color: var(--primary); background: rgba(15,15,15,0.5); padding: 0 5px; border-radius: 4px;
+        }
+
+        .modal-btn { width: 100%; padding: 14px; border-radius: 50px; border: none; background: var(--primary); color: white; font-weight: 600; font-size: 16px; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px var(--primary-glow); }
+        .modal-btn:hover { transform: scale(1.02); box-shadow: 0 8px 25px var(--primary-glow); }
+        
+        .flip-text { text-align: center; margin-top: 15px; color: var(--text-muted); font-size: 14px; }
+        .flip-text span { color: var(--primary); cursor: pointer; font-weight: 600; transition: 0.3s; }
+        .flip-text span:hover { text-decoration: underline; }
+        
+        .close-modal-btn {
+            position: absolute; top: 15px; right: 20px; color: var(--text-muted); font-size: 24px; cursor: pointer; transition: 0.5s;
+        }
+        .close-modal-btn:hover { color: white; transform: rotate(180deg) scale(1.2); }
 
         /* --- FOOTER --- */
         footer { background: #0a0a0a; border-top: 2px solid var(--primary); padding: 40px 5% 20px; width: 100%; margin-top: 50px; }
@@ -204,6 +251,7 @@
             .hero h1 { font-size: 2.5rem; }
             .grid-2, .product-grid { grid-template-columns: 1fr; }
             .footer-grid { grid-template-columns: 1fr 1fr; }
+            .flip-container { height: 480px; }
         }
         @media(max-width: 480px) {
             .hero h1 { font-size: 2rem; }
@@ -361,13 +409,12 @@
             </div>
         </section>
 
-        <!-- 6. CONTACT (Exact Screenshot Layout) -->
+        <!-- 6. CONTACT -->
         <section id="contact" class="page">
             <div class="content-block">
                 <h2 class="section-title reveal">Get In Touch</h2>
                 <p class="section-sub reveal">Have questions about our products or your order? We're here to help!</p>
                 <div class="grid-2">
-                    <!-- LEFT: Information -->
                     <div class="info-box reveal-left">
                         <div>
                             <h3 style="color:var(--primary); font-size:18px; margin-bottom:15px;"><i class="fas fa-map-marker-alt"></i> Our Corporate Office</h3>
@@ -383,7 +430,6 @@
                         </div>
                     </div>
                     
-                    <!-- RIGHT: Dynamic FORM -->
                     <form class="contact-form info-box reveal-right" id="contactForm">
                         <h3 style="color:var(--primary); font-size:20px; margin-bottom:20px;">Send us a Message</h3>
                         
@@ -424,6 +470,7 @@
         </section>
     </main>
 
+    <!-- FOOTER -->
     <footer>
         <div class="footer-grid">
             <div class="footer-col">
@@ -448,26 +495,75 @@
         <div class="footer-bottom">&copy; 2026 PN RISE. All Rights Reserved.</div>
     </footer>
 
-    <!-- MODALS -->
-    <div class="modal-overlay" id="loginModal">
-        <div class="modal-box">
-            <span class="close-modal" onclick="closeModal('loginModal')">&times;</span>
-            <h2>Welcome Back</h2>
-            <input type="text" id="loginUser" placeholder="Email or Username">
-            <input type="password" id="loginPass" placeholder="Password">
-            <button onclick="handleLogin()">Login</button>
-            <p style="text-align:center; margin-top:15px; color:#888;">New here? <span style="color:var(--primary); cursor:pointer; font-weight:600;" onclick="closeModal('loginModal'); openModal('signup')">Create Account</span></p>
+    <!-- 3D FLIP LOGIN / SIGNUP MODALS -->
+    <div class="modal-overlay" id="authModal">
+        <div class="flip-container" id="flipContainer">
+            <div class="flip-inner">
+                
+                <!-- LOGIN SIDE (Front) -->
+                <div class="flip-front">
+                    <span class="close-modal-btn" onclick="closeModal()">&times;</span>
+                    <h2>Welcome Back</h2>
+                    
+                    <div class="input-group">
+                        <input type="text" id="loginUser" placeholder=" ">
+                        <label>Email or Username</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="loginPass" placeholder=" ">
+                        <label>Password</label>
+                    </div>
+                    
+                    <button class="modal-btn" onclick="handleLogin()">Login</button>
+                    
+                    <div class="flip-text">
+                        New here? <span onclick="flipCard()">Create Account</span>
+                    </div>
+                </div>
+
+                <!-- SIGNUP SIDE (Back) -->
+                <div class="flip-back">
+                    <span class="close-modal-btn" onclick="closeModal()">&times;</span>
+                    <h2>Join Us</h2>
+                    
+                    <div class="input-group">
+                        <input type="text" id="signupName" placeholder=" ">
+                        <label>Full Name</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" id="signupEmail" placeholder=" ">
+                        <label>Email Address</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="signupUser" placeholder=" ">
+                        <label>Username</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="signupPass" placeholder=" ">
+                        <label>Password</label>
+                    </div>
+                    
+                    <button class="modal-btn" onclick="handleSignup()">Sign Up</button>
+                    
+                    <div class="flip-text">
+                        Already have an account? <span onclick="flipCard()">Login</span>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
-    <div class="modal-overlay" id="signupModal">
-        <div class="modal-box">
-            <span class="close-modal" onclick="closeModal('signupModal')">&times;</span>
-            <h2>Create Account</h2>
-            <input type="text" id="signupName" placeholder="Full Name">
-            <input type="email" id="signupEmail" placeholder="Email">
-            <input type="text" id="signupUser" placeholder="Username">
-            <input type="password" id="signupPass" placeholder="Password">
-            <button onclick="handleSignup()">Sign Up</button>
+
+    <!-- TRACKING MODAL -->
+    <div class="tracker-overlay" id="trackerModal">
+        <div class="tracker-box">
+            <span class="close-modal" onclick="document.getElementById('trackerModal').style.display='none'" style="float:right; font-size:24px; color:#888;">&times;</span>
+            <h2 style="font-family:'Playfair Display', serif; color:var(--primary); text-align:center; margin-bottom:10px;">Live Order Tracker</h2>
+            <div id="trackerIdDisplay" style="text-align:center; color:var(--text-muted); margin-bottom:20px; font-size:14px;">Order #PN-2026-0001</div>
+            <div class="track-timeline" id="trackerTimeline"></div>
+            <div id="trackerFooter" style="text-align:center; margin-top:20px; color:var(--text-muted); font-size:13px; border-top:1px solid #333; padding-top:15px;">
+                Estimated Delivery: <strong style="color:var(--primary);">2-3 Business Days</strong>
+            </div>
         </div>
     </div>
 
@@ -580,20 +676,38 @@
         function toggleDropdown() { document.getElementById('userDropdown').classList.toggle('open'); }
         function navigateAndClose(page) {
             if(isLoggedIn) navigatePage(page);
-            else { alert("Please login first."); toggleDropdown(); openModal('login'); }
+            else { alert("Please login first."); toggleDropdown(); openModal(); }
         }
 
         function handleAuthClick() {
-            if(isLoggedIn) { isLoggedIn = false; currentUser = null; localStorage.removeItem('pn_user'); updateUI('Login', ''); document.getElementById('userNameText').innerText = 'Login'; navigatePage('home'); } 
-            else { openModal('login'); }
+            if(isLoggedIn) { 
+                isLoggedIn = false; currentUser = null; localStorage.removeItem('pn_user'); 
+                updateUI('Login', ''); document.getElementById('userNameText').innerText = 'Login'; 
+                navigatePage('home'); 
+            } else { openModal(); }
         }
+
+        function flipCard() {
+            document.getElementById('flipContainer').classList.toggle('flipped');
+        }
+
+        function openModal() {
+            document.getElementById('authModal').style.display = 'flex';
+            // Reset the card to Login side when opening
+            document.getElementById('flipContainer').classList.remove('flipped');
+        }
+        function closeModal() { document.getElementById('authModal').style.display = 'none'; }
+
         function handleSignup() {
             const n = document.getElementById('signupName').value, e = document.getElementById('signupEmail').value, u = document.getElementById('signupUser').value, p = document.getElementById('signupPass').value;
             if(n && e && u && p) {
                 localStorage.setItem('pn_user', JSON.stringify({name:n, email:e, username:u, pass:p}));
-                alert("Account created! Please login."); closeModal('signupModal'); openModal('login');
+                alert("Account created! Please login."); 
+                flipCard(); // Flip back to Login card
+                document.getElementById('loginUser').value = u; // Auto-fill username
             } else alert("Please fill all fields.");
         }
+
         function handleLogin() {
             const input = document.getElementById('loginUser').value, pass = document.getElementById('loginPass').value;
             const stored = localStorage.getItem('pn_user');
@@ -602,7 +716,7 @@
                 if((u.email === input || u.username === input) && u.pass === pass) {
                     isLoggedIn = true; currentUser = u; updateUI(u.name, u.email);
                     document.getElementById('userNameText').innerText = u.name;
-                    closeModal('loginModal'); navigatePage('home');
+                    closeModal(); navigatePage('home');
                     return;
                 }
             }
@@ -612,11 +726,9 @@
             document.getElementById('dashName').innerText = name;
             document.getElementById('dashEmail').innerText = isLoggedIn ? email : 'Not Logged In';
         }
-        function openModal(type) { document.getElementById('loginModal').style.display = (type==='login')?'flex':'none'; document.getElementById('signupModal').style.display = (type==='signup')?'flex':'none'; }
-        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
         function addToCart(id) {
-            if(!isLoggedIn) { alert("⚠️ Please Login to add items!"); openModal('login'); return; }
+            if(!isLoggedIn) { alert("⚠️ Please Login to add items!"); openModal(); return; }
             const p = products.find(x => x.id === id);
             if(cart.some(item => item.id === id)) { alert(`${p.name} is already in your cart!`); return; }
             cart.push(p);
@@ -653,7 +765,7 @@
         }
 
         function placeOrder() {
-            if(!isLoggedIn) { alert("Please login."); openModal('login'); return; }
+            if(!isLoggedIn) { alert("Please login."); openModal(); return; }
             const name = document.getElementById('chkName').value, phone = document.getElementById('chkPhone').value, pincode = document.getElementById('chkPincode').value, address = document.getElementById('chkAddress').value;
             if(!name || !phone || !pincode || !address) { alert("Fill all shipping details."); return; }
             orderCounter++;
