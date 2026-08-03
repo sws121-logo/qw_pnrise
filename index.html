@@ -26,23 +26,24 @@
         header {
             background: rgba(15, 15, 15, 0.75); backdrop-filter: blur(15px);
             position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.05);
-            padding: 10px 5%; display: flex; justify-content: space-between; align-items: center; gap: 15px;
+            padding: 10px 5%; display: flex; justify-content: space-between; align-items: center; gap: 10px;
         }
-        .header-left { display: flex; align-items: center; gap: 12px; cursor: pointer; }
-        .logo-img { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--primary); background: #222; display: flex; justify-content:center; align-items:center; font-size: 18px; font-weight:bold; color:var(--primary);}
-        .brand-text { font-size: 22px; font-weight: 700; color: var(--primary); font-family: 'Playfair Display', serif; letter-spacing: 0.5px; }
+        .header-left { display: flex; align-items: center; gap: 12px; cursor: pointer; flex-shrink: 0; }
+        .logo-img { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--primary); object-fit: cover; background: #222; }
+        .brand-text { font-size: 22px; font-weight: 700; color: var(--primary); font-family: 'Playfair Display', serif; letter-spacing: 0.5px; display: none; }
         
-        /* Search Bar Styles */
+        /* Search Bar Styles - ALWAYS VISIBLE */
         .search-container {
-            flex: 1; max-width: 500px; display: flex; align-items: center; background: rgba(255,255,255,0.05);
+            flex: 1; min-width: 60px; display: flex; align-items: center; background: rgba(255,255,255,0.05);
             border-radius: 30px; padding: 0 15px; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s;
+            margin: 0 5px;
         }
         .search-container:focus-within { border-color: var(--primary); box-shadow: 0 0 15px var(--primary-glow); }
         .search-container input {
-            width: 100%; background: transparent; border: none; padding: 10px 5px; color: white; outline: none; font-size: 14px;
+            width: 100%; background: transparent; border: none; padding: 10px 5px; color: white; outline: none; font-size: 14px; min-width: 50px;
         }
         .search-container button {
-            background: transparent; border: none; color: var(--text-muted); cursor: pointer; padding: 5px; transition: 0.3s;
+            background: transparent; border: none; color: var(--text-muted); cursor: pointer; padding: 5px; transition: 0.3s; flex-shrink: 0;
         }
         .search-container button:hover { color: var(--primary); }
         
@@ -51,7 +52,7 @@
         .nav-links a:hover, .nav-links a.active { color: var(--primary); text-shadow: 0 0 10px var(--primary-glow); }
         .nav-links a.active::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 100%; height: 2px; background: var(--primary); box-shadow: 0 0 10px var(--primary-glow); }
 
-        .header-right { display: flex; align-items: center; gap: 20px; position: relative; }
+        .header-right { display: flex; align-items: center; gap: 15px; position: relative; flex-shrink: 0; }
         .icon-btn { font-size: 20px; color: var(--text-main); cursor: pointer; transition: 0.3s; position: relative; }
         .icon-btn:hover { color: var(--primary); transform: scale(1.1); }
         .badge { position: absolute; top: -8px; right: -10px; background: var(--primary); color: white; border-radius: 50%; padding: 2px 6px; font-size: 10px; font-weight: 700; box-shadow: 0 0 10px var(--primary-glow); }
@@ -71,14 +72,14 @@
         .dropdown-item:hover { background: rgba(255,255,255,0.05); color: var(--primary); }
 
         /* --- MOBILE HAMBURGER MENU --- */
-        .hamburger { display: none; cursor: pointer; font-size: 24px; color: var(--text-main); }
+        .hamburger { display: none; cursor: pointer; font-size: 24px; color: var(--text-main); flex-shrink: 0; }
         .mobile-nav-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.95);
             z-index: 999; flex-direction: column; justify-content: center; align-items: center; gap: 30px;
         }
         .mobile-nav-overlay.open { display: flex; }
         .mobile-nav-overlay a { color: white; font-size: 24px; font-weight: 600; cursor: pointer; transition: 0.3s; }
-        .mobile-nav-overlay a:hover { color: var(--primary); }
+        .mobile-nav-overlay.a:hover { color: var(--primary); }
         .close-mobile-nav { position: absolute; top: 20px; right: 20px; color: white; font-size: 30px; cursor: pointer; }
 
         /* --- MAIN PAGES --- */
@@ -125,13 +126,14 @@
             text-align: center; position: relative; transform-style: preserve-3d;
         }
         .product-card-wrapper:hover .product-card { transform: rotateX(5deg) rotateY(5deg) scale(1.02); box-shadow: 0 20px 50px rgba(0,0,0,0.6); border-color: var(--primary); }
-        .product-img { font-size: 80px; line-height: 1; margin-bottom: 15px; transform: translateZ(30px); display: block; }
+        .product-img { width: 100%; max-width: 120px; height: 120px; object-fit: contain; margin: 0 auto 15px; transform: translateZ(30px); display: block; background: rgba(255,255,255,0.05); border-radius: 12px; padding: 5px; }
         .product-title { font-size: 18px; font-weight: 600; margin-bottom: 5px; transform: translateZ(20px); }
         .product-desc { color: var(--text-muted); font-size: 13px; margin-bottom: 15px; transform: translateZ(10px); }
 
         /* --- PRODUCT DETAIL PAGE --- */
         .detail-wrapper { max-width: 1100px; margin: 40px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
-        .detail-img-box { background: var(--bg-card); border-radius: 24px; padding: 20px; border: 1px solid var(--border-color); display: flex; justify-content: center; align-items: center; font-size: 120px; min-height: 400px; }
+        .detail-img-box { background: var(--bg-card); border-radius: 24px; padding: 20px; border: 1px solid var(--border-color); display: flex; justify-content: center; align-items: center; min-height: 400px; }
+        .detail-img-box img { width: 100%; max-width: 300px; height: auto; object-fit: contain; }
         .detail-info h1 { font-size: 2.8rem; font-family: 'Playfair Display', serif; color: var(--primary); margin-bottom: 10px; }
         .detail-price-row { display: flex; gap: 20px; font-size: 1.2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; margin-bottom: 20px; }
         .detail-price { font-weight: 700; color: var(--primary); }
@@ -184,12 +186,12 @@
         @media(max-width: 992px) {
             .hero h1 { font-size: 3.5rem; }
             .detail-wrapper { grid-template-columns: 1fr; gap: 30px; }
+            .brand-text { display: none; }
         }
 
         @media(max-width: 768px) {
             .nav-links { display: none; }
             .hamburger { display: block; }
-            .search-container { display: none; } /* Hide search on small mobile to fit header */
             
             .hero h1 { font-size: 2.5rem; }
             .grid-2 { grid-template-columns: 1fr; }
@@ -198,22 +200,22 @@
             .dashboard-wrapper, .cart-wrapper { padding: 0 10px; }
             .dash-section { padding: 15px; }
             
-            .detail-img-box { min-height: 250px; font-size: 80px; }
+            .detail-img-box { min-height: 250px; }
             .detail-info h1 { font-size: 2rem; }
             
             .tracker-box { padding: 20px; }
+            .search-container input { font-size: 12px; padding: 8px 5px; }
         }
 
         @media(max-width: 480px) {
             .hero h1 { font-size: 2rem; }
-            .header-left .brand-text { font-size: 18px; }
-            .logo-img { width: 30px; height: 30px; font-size: 14px; }
-            
+            .header-left .brand-text { display: none; }
+            .logo-img { width: 35px; height: 35px; }
             .content-block { padding: 30px 5%; }
             .section-title { font-size: 1.8rem; }
             .feature-card { padding: 20px; }
-            
             .cart-item { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .header-right { gap: 10px; }
         }
     </style>
 </head>
@@ -222,13 +224,14 @@
     <!-- HEADER -->
     <header>
         <div class="header-left" onclick="navigatePage('home')">
-            <div class="logo-img">PN</div>
+            <!-- YOUR CUSTOM LOGO LINK -->
+            <img src="https://res.cloudinary.com/dtz0urit6/image/upload/q_auto:best,f_jpg/cloudinary-tools-uploads/ajkubf7eoqdmvikyulaq" class="logo-img" alt="PN RISE Logo">
             <span class="brand-text">PN RISE</span>
         </div>
         
-        <!-- DESKTOP SEARCH BAR -->
+        <!-- SEARCH BAR (Fixed Visible in all views) -->
         <div class="search-container">
-            <input type="text" id="searchInput" placeholder="Search for products..." onkeyup="searchProducts()">
+            <input type="text" id="searchInput" placeholder="Search products..." onkeyup="searchProducts()">
             <button onclick="searchProducts()"><i class="fas fa-search"></i></button>
         </div>
 
@@ -333,7 +336,7 @@
         <section id="detail" class="page">
             <div class="detail-wrapper">
                 <div class="detail-img-box" id="detailImgBox">
-                    <i class="fas fa-leaf"></i>
+                    <img src="" alt="Product Image" id="detailImgTag">
                 </div>
                 <div class="detail-info">
                     <h1 id="detailTitle">Product Name</h1>
@@ -537,22 +540,24 @@
 
     <!-- --- WEBSITE LOGIC --- -->
     <script>
-        // --- DATA (Styled with beautiful emojis for images) ---
+        // --- DATA (Using your custom Cloudinary Links) ---
+        const productImageLink = "https://res.cloudinary.com/dtz0urit6/image/upload/q_auto:best,f_jpg/cloudinary-tools-uploads/wdn24qpuj6nu6vxritha";
+        
         const products = [
             { 
-                id: 1, name: 'Herbal Trio Glow Pack', price: 599, old: 799, icon: '🌿', desc: 'Beetroot, Neem & Rice.',
+                id: 1, name: 'Herbal Trio Glow Pack', price: 599, old: 799, desc: 'Beetroot, Neem & Rice.',
                 specs: ['Pure Beetroot Powder', 'Neem Leaf Extracts', 'Rice Flour', 'Suitable for: Acne-prone & Oily Skin'],
                 howTo: ['Mix 1-2 tbsp with rose water or plain water to form a smooth paste.', 'Apply evenly on a cleansed face.', 'Leave it on for 15 to 20 minutes.', 'Wash off with lukewarm water and pat dry.'],
                 benefits: ['Controls acne and purifies pores', 'Gives a natural, pinkish glow', 'Removes dead skin cells', 'Balances excess oil production']
             },
             { 
-                id: 2, name: 'Turmeric & Neem Pack', price: 499, old: 649, icon: '✨', desc: 'Turmeric, Neem & Rice.',
+                id: 2, name: 'Turmeric & Neem Pack', price: 499, old: 649, desc: 'Turmeric, Neem & Rice.',
                 specs: ['Pure Turmeric Root', 'Neem Leaf Powder', 'Rice Flour', 'Suitable for: Dull & Pigmented Skin'],
                 howTo: ['Mix 1-2 tbsp of powder with milk or yogurt.', 'Apply a thick layer on your face.', 'Relax for 15 minutes.', 'Rinse with cold water.'],
                 benefits: ['Fades dark spots and blemishes', 'Antioxidant-rich natural glow', 'Soothes inflammation and redness', 'Brightens skin complexion']
             },
             { 
-                id: 3, name: 'Pure Beetroot Blush Pack', price: 450, old: 599, icon: '❤️', desc: 'Pure Beetroot & Rice.',
+                id: 3, name: 'Pure Beetroot Blush Pack', price: 450, old: 599, desc: 'Pure Beetroot & Rice.',
                 specs: ['Pure Beetroot Powder', 'Finely Milled Rice Flour', 'Suitable for: Dry & Sensitive Skin'],
                 howTo: ['Mix 1-2 tbsp powder with raw milk.', 'Gently massage onto face.', 'Leave for 15 minutes until dry.', 'Wash off with water and moisturize.'],
                 benefits: ['Deeply hydrates dry skin', 'Provides a natural pink tint', 'Boosts blood circulation', 'Leaves skin soft and supple']
@@ -625,7 +630,7 @@
             grid.innerHTML = filteredProducts.map(p => `
                 <div class="product-card-wrapper" onclick="showProductDetail(${p.id})">
                     <div class="product-card">
-                        <div class="product-img">${p.icon}</div>
+                        <img src="${productImageLink}" class="product-img" alt="${p.name}">
                         <div class="product-title">${p.name}</div>
                         <div class="product-desc">${p.desc}</div>
                         <div class="price-row">
@@ -644,7 +649,7 @@
             grid.innerHTML = products.map(p => `
                 <div class="product-card-wrapper" onclick="showProductDetail(${p.id})">
                     <div class="product-card">
-                        <div class="product-img">${p.icon}</div>
+                        <img src="${productImageLink}" class="product-img" alt="${p.name}">
                         <div class="product-title">${p.name}</div>
                         <div class="product-desc">${p.desc}</div>
                         <div class="price-row">
@@ -668,7 +673,7 @@
             document.getElementById('detailSpecs').innerHTML = p.specs.map(s => `<li>${s}</li>`).join('');
             document.getElementById('detailHowTo').innerHTML = p.howTo.map(s => `<li>${s}</li>`).join('');
             document.getElementById('detailBenefits').innerHTML = p.benefits.map(s => `<li>${s}</li>`).join('');
-            document.getElementById('detailImgBox').innerHTML = `<div style="font-size:120px; color:var(--primary);">${p.icon}</div>`;
+            document.getElementById('detailImgTag').src = productImageLink;
             document.getElementById('detailAddBtn').onclick = () => { addToCart(p.id); };
             navigatePage('detail');
         }
@@ -741,7 +746,7 @@
             let html = '', total = 0;
             cart.forEach((item, idx) => {
                 total += item.price;
-                html += `<div class="cart-item"><span>${idx+1}. ${item.icon} ${item.name}</span><span style="color:var(--primary); font-weight:600;">₹${item.price}</span></div>`;
+                html += `<div class="cart-item"><span>${idx+1}. ${item.name}</span><span style="color:var(--primary); font-weight:600;">₹${item.price}</span></div>`;
             });
             html += `<div class="cart-item" style="border:2px solid var(--primary); background:#1a1a1a; font-size:18px;"><span><strong>Total</strong></span><span style="color:var(--primary);"><strong>₹${total}</strong></span></div>`;
             container.innerHTML = html;
