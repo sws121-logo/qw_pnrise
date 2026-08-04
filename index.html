@@ -435,6 +435,56 @@
         </section>
     </main>
 
+    <!-- 3D FLIP LOGIN / SIGNUP MODALS (FIXED) -->
+    <div class="modal-overlay" id="authModal">
+        <div class="flip-container" id="flipContainer">
+            <div class="flip-inner">
+                <!-- LOGIN FRONT -->
+                <div class="flip-front">
+                    <span class="close-modal-btn" onclick="closeModal()" style="position:absolute; top:15px; right:20px; color:#888; font-size:24px; cursor:pointer;">&times;</span>
+                    <h2>Welcome Back</h2>
+                    <div class="input-group">
+                        <input type="text" id="loginUser" placeholder=" ">
+                        <label>Email or Username</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="loginPass" placeholder=" ">
+                        <label>Password</label>
+                    </div>
+                    <button class="modal-btn" onclick="handleLogin()">Login</button>
+                    <div class="flip-text">
+                        New here? <span onclick="flipCard()">Create Account</span>
+                    </div>
+                </div>
+                <!-- SIGNUP BACK -->
+                <div class="flip-back">
+                    <span class="close-modal-btn" onclick="closeModal()" style="position:absolute; top:15px; right:20px; color:#888; font-size:24px; cursor:pointer;">&times;</span>
+                    <h2>Join Us</h2>
+                    <div class="input-group">
+                        <input type="text" id="signupName" placeholder=" ">
+                        <label>Full Name</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" id="signupEmail" placeholder=" ">
+                        <label>Email Address</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="signupUser" placeholder=" ">
+                        <label>Username</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="signupPass" placeholder=" ">
+                        <label>Password</label>
+                    </div>
+                    <button class="modal-btn" onclick="handleSignup()">Sign Up</button>
+                    <div class="flip-text">
+                        Already have an account? <span onclick="flipCard()">Login</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- PROFILE POPUPS -->
     <div class="popup-overlay" id="popupContainer">
         <div class="popup-box">
@@ -603,7 +653,7 @@
         function toggleDropdown() { document.getElementById('userDropdown').classList.toggle('open'); }
         function navigateAndClose(page) {
             if(isLoggedIn) navigatePage(page);
-            else { alert("Please login first."); toggleDropdown(); openModal(); }
+            else { toggleDropdown(); openModal(); }
         }
         function handleAuthClick() {
             if(isLoggedIn) { 
@@ -615,14 +665,16 @@
                 navigatePage('home'); 
             } else { openModal(); }
         }
-        function openModal() { document.getElementById('authModal').style.display = 'flex'; }
+        function flipCard() { document.getElementById('flipContainer').classList.toggle('flipped'); }
+        function openModal() { document.getElementById('authModal').style.display = 'flex'; document.getElementById('flipContainer').classList.remove('flipped'); }
         function closeModal() { document.getElementById('authModal').style.display = 'none'; }
 
         function handleSignup() {
             const n = document.getElementById('signupName').value, e = document.getElementById('signupEmail').value, u = document.getElementById('signupUser').value, p = document.getElementById('signupPass').value;
             if(n && e && u && p) {
                 localStorage.setItem('pn_user', JSON.stringify({name:n, email:e, username:u, pass:p}));
-                alert("Account created! Please login."); closeModal(); openModal(); // Close signup, Open login
+                alert("Account created! Please login."); 
+                flipCard(); // Flip to login side
             } else alert("Please fill all fields.");
         }
         function handleLogin() {
@@ -648,7 +700,7 @@
 
         // --- CART LOGIC ---
         function addToCart(id) {
-            if(!isLoggedIn) { alert("⚠️ Please Login to add items!"); openModal(); return; }
+            if(!isLoggedIn) { openModal(); return; } // Shows the beautiful modal now!
             const p = products.find(x => x.id === id);
             // Allow adding multiple same items
             cart.push(p);
@@ -843,7 +895,7 @@
             }
             container.innerHTML = orders.slice().reverse().map((order, index) => {
                 const statusText = getDynamicStatus(order.timestamp);
-                const textColor = statusText === 'Delivered' ? 'var(--primary)' : 'var(--primary)'; // Keep primary for delivered
+                const textColor = statusText === 'Delivered' ? 'var(--primary)' : 'var(--primary)';
                 
                 return `
                     <div class="order-history-card">
@@ -868,7 +920,7 @@
             const diffMinutes = (now - timestamp) / (1000 * 60); // Minutes since order
             
             // 5 Phases: Placed -> Processed -> Shipped -> Out for Delivery -> Delivered
-            // Simulating time passing. Adjust numbers to test faster if needed.
+            // Simulating time passing. 
             if (diffMinutes < 1) return 'Placed';          // Less than 1 min
             if (diffMinutes < 2) return 'Processed';      // 1-2 mins
             if (diffMinutes < 4) return 'Shipped';        // 2-4 mins
