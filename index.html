@@ -13,33 +13,28 @@
             --primary: #6B8E5A; --primary-light: #8baa7d; --primary-glow: rgba(107, 142, 90, 0.4);
             --bg-dark: #0f0f0f; --bg-card: #1a1a1a; --glass: rgba(26, 26, 26, 0.6);
             --text-main: #f3f4f6; --text-muted: #9ca3af; --border-color: #2a2a2a;
-            --success-green: #2ecc71;
             --danger: #ff4757;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; display: flex; flex-direction: column; min-height: 100vh;}
-        ul { list-style: none; }
 
         /* --- SCROLL REVEALS --- */
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
-        .reveal-left { opacity: 0; transform: translateX(-40px); transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
-        .reveal-left.active { opacity: 1; transform: translateX(0); }
-        .reveal-right { opacity: 0; transform: translateX(40px); transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
-        .reveal-right.active { opacity: 1; transform: translateX(0); }
 
         /* --- HEADER --- */
         header {
-            background: rgba(15, 15, 15, 0.75); backdrop-filter: blur(15px);
+            background: rgba(15, 15, 15, 0.85); backdrop-filter: blur(12px);
             position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.05);
-            padding: 10px 5%; display: flex; justify-content: space-between; align-items: center; gap: 8px; height: 65px;
+            padding: 12px 5%; display: flex; justify-content: space-between; align-items: center; gap: 10px; height: 70px;
         }
-        .header-left { display: flex; align-items: center; gap: 10px; cursor: pointer; flex-shrink: 0; }
-        .logo-img { width: 35px; height: 35px; border-radius: 50%; border: 2px solid var(--primary); object-fit: cover; background: #222; }
-        .brand-text { font-size: 20px; font-weight: 700; color: var(--primary); font-family: 'Playfair Display', serif; letter-spacing: 0.5px; display: none; }
+        .header-left { display: flex; align-items: center; gap: 12px; cursor: pointer; flex-shrink: 0; }
+        .logo-img { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--primary); object-fit: cover; background: #222; }
+        .brand-text { font-size: 22px; font-weight: 700; color: var(--primary); font-family: 'Playfair Display', serif; display: none; }
+        
         .search-container {
             flex: 1; display: flex; align-items: center; background: rgba(255,255,255,0.05);
-            border-radius: 30px; padding: 0 10px; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; height: 40px;
+            border-radius: 30px; padding: 0 15px; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; height: 40px; max-width: 500px;
         }
         .search-container:focus-within { border-color: var(--primary); box-shadow: 0 0 15px var(--primary-glow); }
         .search-container input { width: 100%; background: transparent; border: none; padding: 0 5px; color: white; outline: none; font-size: 14px; }
@@ -51,7 +46,7 @@
         .nav-links a:hover, .nav-links a.active { color: var(--primary); text-shadow: 0 0 10px var(--primary-glow); }
         .nav-links a.active::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 100%; height: 2px; background: var(--primary); box-shadow: 0 0 10px var(--primary-glow); }
 
-        .header-right { display: flex; align-items: center; gap: 10px; position: relative; flex-shrink: 0; }
+        .header-right { display: flex; align-items: center; gap: 15px; position: relative; flex-shrink: 0; }
         .header-cart-icon { position: relative; cursor: pointer; font-size: 22px; color: var(--text-main); transition: 0.3s; }
         .header-cart-icon:hover { color: var(--primary); transform: scale(1.1); }
         .header-cart-icon .cart-count-badge {
@@ -60,10 +55,10 @@
         }
 
         .user-menu-wrapper { position: relative; }
-        .user-trigger { display: flex; align-items: center; gap: 5px; cursor: pointer; font-weight: 500; font-size: 14px; color: var(--text-muted); }
+        .user-trigger { display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 500; font-size: 14px; color: var(--text-muted); }
         .user-trigger:hover { color: var(--primary); }
         .dropdown-menu {
-            position: absolute; top: 45px; right: 0; width: 240px; background: var(--glass);
+            position: absolute; top: 45px; right: 0; width: 220px; background: var(--glass);
             backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; 
             box-shadow: 0 10px 40px rgba(0,0,0,0.5); display: none; overflow: hidden; padding: 10px 0; z-index: 1001;
         }
@@ -72,31 +67,27 @@
         .dropdown-item { padding: 12px 20px; display: flex; align-items: center; gap: 12px; color: var(--text-main); cursor: pointer; transition: 0.2s; font-size: 14px; }
         .dropdown-item:hover { background: rgba(255,255,255,0.05); color: var(--primary); }
 
-        /* --- MOBILE BOTTOM NAV --- */
-        .bottom-nav {
-            display: none; position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(15, 15, 15, 0.95);
-            backdrop-filter: blur(15px); border-top: 1px solid rgba(255,255,255,0.05); z-index: 1000;
-            padding: 8px 0 env(safe-area-inset-bottom); justify-content: space-around; align-items: center;
-        }
-        .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-muted); cursor: pointer; transition: 0.3s; gap: 3px; padding: 5px; flex: 1;}
-        .nav-item i { font-size: 22px; }
-        .nav-item span { font-size: 10px; font-weight: 500; }
-        .nav-item.active { color: var(--primary); }
-
         /* --- MAIN PAGES --- */
-        main { margin-top: 65px; flex: 1; padding-bottom: 70px; }
+        main { margin-top: 70px; flex: 1; padding-bottom: 40px; }
         .page { display: none; }
         .page.active { display: block; animation: pageEntrance 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
         @keyframes pageEntrance { from { opacity: 0; transform: scale(0.98) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
 
+        /* --- CONTENT BLOCKS --- */
+        .content-block { padding: 60px 5%; max-width: 1200px; margin: 0 auto; }
+        .section-title { text-align: center; font-size: 2.5rem; font-weight: 700; color: var(--primary); font-family: 'Playfair Display', serif; margin-bottom: 20px; }
+        .cta-btn { background: var(--primary); border: none; padding: 14px 35px; border-radius: 50px; color: white; font-weight: 600; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 20px var(--primary-glow); }
+        .cta-btn:hover { background: var(--primary-light); transform: scale(1.05); }
+
         /* --- HERO --- */
-        .content-block { padding: 40px 5%; max-width: 1200px; margin: 0 auto; }
-        .section-title { text-align: center; font-size: 2.2rem; font-weight: 700; color: var(--primary); font-family: 'Playfair Display', serif; margin-bottom: 15px; }
-        .cta-btn { background: var(--primary); border: none; padding: 14px 35px; border-radius: 50px; color: white; font-weight: 600; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 20px var(--primary-glow); animation: breathe 2s infinite ease-in-out; }
-        @keyframes breathe { 0%, 100% { box-shadow: 0 4px 20px var(--primary-glow); transform: scale(1); } 50% { box-shadow: 0 8px 30px var(--primary-glow); transform: scale(1.02); } }
-        .cta-btn:hover { background: var(--primary-light); }
-        .hero { min-height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; overflow: hidden; background: #0f0f0f; }
-        .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; background-size: cover; background-position: center; animation: slideShow 30s infinite; }
+        .hero {
+            min-height: 85vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+            position: relative; overflow: hidden; background: #0f0f0f;
+        }
+        .hero-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
+            background-size: cover; background-position: center; animation: slideShow 30s infinite;
+        }
         .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; background: rgba(15, 15, 15, 0.7); backdrop-filter: blur(2px); }
         @keyframes slideShow {
             0% { background-image: url('https://images.unsplash.com/photo-1615486511268-6d3c24e335db?q=80&w=2000&auto=format&fit=crop'); opacity: 1; }
@@ -105,67 +96,65 @@
             100% { background-image: url('https://images.unsplash.com/photo-1615486511268-6d3c24e335db?q=80&w=2000&auto=format&fit=crop'); opacity: 1; }
         }
         .hero-content { position: relative; z-index: 2; padding: 20px; }
-        .hero h1 { font-size: 3.5rem; font-weight: 700; font-family: 'Playfair Display', serif; margin-bottom: 20px; text-shadow: 0 5px 30px rgba(0,0,0,0.8); }
+        .hero h1 { font-size: 4rem; font-weight: 700; font-family: 'Playfair Display', serif; margin-bottom: 20px; text-shadow: 0 5px 30px rgba(0,0,0,0.8); }
         .hero h1 span { color: var(--primary); text-shadow: 0 0 30px var(--primary-glow); }
-        .hero p { max-width: 600px; opacity: 0.9; margin: 0 auto 40px; font-size: 1.1rem; line-height: 1.6; }
+        .hero p { max-width: 600px; opacity: 0.9; margin: 0 auto 40px; font-size: 1.2rem; line-height: 1.6; }
 
         /* --- SHOP --- */
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
         .product-card-wrapper { perspective: 1000px; cursor: pointer; transition: transform 0.3s; }
         .product-card-wrapper:hover { transform: rotateX(3deg) rotateY(3deg) scale(1.02); }
         .product-card { background: var(--bg-card); border-radius: 16px; overflow: hidden; border: 1px solid var(--border-color); transition: box-shadow 0.3s; text-align: center; position: relative; }
         .product-card-wrapper:hover .product-card { box-shadow: 0 20px 50px rgba(0,0,0,0.6); border-color: var(--primary); }
-        .product-img { width: 100%; height: 200px; object-fit: cover; display: block; border-bottom: 1px solid var(--border-color); background: #222; }
-        .product-body { padding: 20px; }
-        .product-title { font-size: 17px; font-weight: 600; margin-bottom: 5px; }
+        .product-img { width: 100%; height: 220px; object-fit: cover; display: block; border-bottom: 1px solid var(--border-color); background: #222; }
+        .product-body { padding: 25px; }
+        .product-title { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
         .product-desc { color: var(--text-muted); font-size: 13px; margin-bottom: 15px; }
-        .price-row { display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 15px; }
-        .price { color: var(--primary); font-weight: 700; font-size: 20px; }
+        .price-row { display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 20px; }
+        .price { color: var(--primary); font-weight: 700; font-size: 22px; }
         .old-price { color: var(--text-muted); text-decoration: line-through; font-size: 14px; }
 
         /* --- PRODUCT DETAIL --- */
         .detail-wrapper { max-width: 1100px; margin: 40px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start; }
-        .detail-img-box { background: var(--bg-card); border-radius: 24px; padding: 20px; border: 1px solid var(--border-color); display: flex; justify-content: center; align-items: center; min-height: 400px; }
+        .detail-img-box { background: var(--bg-card); border-radius: 20px; padding: 20px; border: 1px solid var(--border-color); display: flex; justify-content: center; align-items: center; min-height: 350px; }
         .detail-img-box img { width: 100%; max-width: 300px; height: auto; object-fit: contain; background: #161616; border-radius: 12px;}
         .detail-info h1 { font-size: 2.8rem; font-family: 'Playfair Display', serif; color: var(--primary); margin-bottom: 10px; }
         .detail-price-row { display: flex; gap: 20px; font-size: 1.2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; margin-bottom: 20px; }
-        .detail-price { font-weight: 700; color: var(--primary); }
-        .detail-old-price { color: var(--text-muted); text-decoration: line-through; }
-        .detail-section { background: var(--glass); padding: 20px; border-radius: 16px; margin: 20px 0; border: 1px solid rgba(255,255,255,0.05); }
+        .detail-section { background: var(--glass); padding: 20px; border-radius: 12px; margin: 20px 0; border: 1px solid rgba(255,255,255,0.05); }
         .detail-section h3 { color: var(--primary); margin-bottom: 10px; }
         .detail-section ul { list-style: none; padding-left: 5px; }
         .detail-section ul li { padding: 5px 0; color: var(--text-main); border-bottom: 1px solid rgba(255,255,255,0.05); }
         .detail-section ul li::before { content: "🌿 "; color: var(--primary); font-weight: bold; }
 
-        /* --- DYNAMIC CHECKOUT & PAYMENT --- */
+        /* --- ABOUT & CONTACT --- */
+        .about-box { background: var(--bg-card); padding: 40px; border-radius: 16px; border: 1px solid var(--border-color); line-height: 1.8; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: stretch; }
+        .info-box { background: var(--bg-card); padding: 30px; border-radius: 16px; border: 1px solid var(--border-color); display: flex; flex-direction: column; justify-content: space-between; }
+        .contact-form input, .contact-form textarea { width: 100%; padding: 12px; margin: 5px 0 15px; background: #0f0f0f; border: 1px solid #333; border-radius: 8px; color: white; transition: 0.3s; font-size: 14px; }
+        .contact-form input:focus, .contact-form textarea:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 15px var(--primary-glow); }
+
+        /* --- CART & CHECKOUT --- */
         .cart-wrapper { max-width: 900px; margin: 30px auto; padding: 0 20px; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); padding: 15px 20px; border-radius: 12px; margin-bottom: 12px; border: 1px solid var(--border-color); transition: 0.3s; }
-        .cart-item:hover { border-color: var(--primary); transform: translateX(5px); }
-        
+        .cart-item { display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); padding: 15px 20px; border-radius: 12px; margin-bottom: 12px; border: 1px solid var(--border-color); }
         .checkout-box { background: var(--bg-card); border-radius: 16px; border: 1px solid var(--border-color); margin-top: 25px; display: none; overflow: hidden; padding: 0; }
-        
         .checkout-steps { display: flex; background: #222; border-bottom: 1px solid var(--border-color); }
-        .step-tab { flex: 1; padding: 15px; text-align: center; font-weight: 600; color: var(--text-muted); border-bottom: 3px solid transparent; transition: 0.3s; cursor: default; }
+        .step-tab { flex: 1; padding: 15px; text-align: center; font-weight: 600; color: var(--text-muted); border-bottom: 3px solid transparent; transition: 0.3s; }
         .step-tab.active { color: var(--primary); border-bottom: 3px solid var(--primary); }
-        
         .checkout-step-content { display: none; padding: 25px; animation: fadeSlide 0.4s ease; }
         .checkout-step-content.active { display: block; }
-        
-        .checkout-step-content input, .checkout-step-content select, .checkout-step-content textarea { width: 100%; padding: 12px; margin: 5px 0 15px; background: #0f0f0f; border: 1px solid #333; border-radius: 8px; color: white; transition: 0.3s; font-size: 14px; }
-        .checkout-step-content input:focus, .checkout-step-content select:focus, .checkout-step-content textarea:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 15px var(--primary-glow); }
+        .checkout-step-content input, .checkout-step-content textarea { width: 100%; padding: 12px; margin: 5px 0 15px; background: #0f0f0f; border: 1px solid #333; border-radius: 8px; color: white; transition: 0.3s; font-size: 14px; }
+        .checkout-step-content input:focus, .checkout-step-content textarea:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 15px var(--primary-glow); }
         .checkout-step-content label { display: block; color: var(--text-muted); font-size: 13px; margin-bottom: 5px; }
         .payment-option-box { background: #0f0f0f; padding: 15px; border-radius: 8px; margin-bottom: 10px; border: 1px solid #333; display: flex; align-items: center; gap: 15px; cursor: pointer; transition: 0.3s; }
         .payment-option-box:hover, .payment-option-box.selected { border-color: var(--primary); background: #1a1a1a; }
         .payment-option-box input[type="radio"] { width: auto; margin: 0; accent-color: var(--primary); }
 
-        /* --- PROFILE & ADDRESS/CARD MANAGEMENT --- */
+        /* --- PROFILE --- */
         .profile-container { max-width: 1000px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr; gap: 20px; }
-        .dash-section { background: var(--glass); backdrop-filter: blur(5px); border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); padding: 25px; transition: 0.3s; }
-        .dash-section:hover { border-color: var(--primary); }
+        .dash-section { background: var(--glass); backdrop-filter: blur(5px); border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); padding: 25px; }
         .dash-section h3 { color: var(--primary); border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 15px; font-size: 18px; display: flex; justify-content: space-between; align-items: center; }
         .mini-btn { background: var(--primary); border: none; color: white; padding: 5px 15px; border-radius: 20px; cursor: pointer; font-size: 12px; font-weight: 600; transition: 0.3s; }
         .mini-btn:hover { transform: scale(1.05); }
-        
         .address-item, .card-item { background: #0f0f0f; padding: 15px; border-radius: 8px; margin-bottom: 10px; border: 1px solid #333; display: flex; justify-content: space-between; align-items: center; }
         .del-btn { background: var(--danger); border: none; color: white; padding: 4px 12px; border-radius: 5px; cursor: pointer; font-size: 12px; transition: 0.3s; }
         .del-btn:hover { opacity: 0.8; }
@@ -177,7 +166,55 @@
         .popup-box input { width: 100%; padding: 10px; margin: 10px 0; background: #0f0f0f; border: 1px solid #333; border-radius: 6px; color: white; }
         .popup-box button { width: 100%; padding: 10px; background: var(--primary); border: none; border-radius: 6px; color: white; font-weight: 600; cursor: pointer; }
 
-        /* --- TRACKER MODAL --- */
+        /* --- AUTH MODALS (Fixed CSS) --- */
+        .modal-overlay { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); 
+            z-index: 2000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(8px);
+        }
+        .flip-container { perspective: 1000px; width: 100%; max-width: 420px; height: 520px; }
+        .flip-inner {
+            position: relative; width: 100%; height: 100%; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+        .flip-container.flipped .flip-inner { transform: rotateY(180deg); }
+        
+        .flip-front, .flip-back {
+            position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+            background: var(--glass); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px; padding: 40px 30px; box-shadow: 0 25px 60px rgba(0,0,0,0.8);
+            display: flex; flex-direction: column; justify-content: center;
+        }
+        .flip-back { transform: rotateY(180deg); }
+
+        .flip-front h2, .flip-back h2 { text-align: center; font-size: 1.8rem; color: var(--primary); font-family: 'Playfair Display', serif; margin-bottom: 25px; }
+        
+        .input-group { position: relative; margin-bottom: 25px; width: 100%; }
+        .input-group input {
+            width: 100%; padding: 16px 15px 8px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px; color: white; font-size: 16px; outline: none; transition: 0.3s;
+        }
+        .input-group input:focus { border-color: var(--primary); box-shadow: 0 0 20px var(--primary-glow); }
+        .input-group label {
+            position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted);
+            font-size: 14px; transition: 0.3s; pointer-events: none;
+        }
+        .input-group input:focus ~ label, .input-group input:not(:placeholder-shown) ~ label {
+            top: 5px; transform: translateY(0); font-size: 11px; color: var(--primary); background: rgba(15,15,15,0.5); padding: 0 5px; border-radius: 4px;
+        }
+
+        .modal-btn { width: 100%; padding: 14px; border-radius: 50px; border: none; background: var(--primary); color: white; font-weight: 600; font-size: 16px; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px var(--primary-glow); }
+        .modal-btn:hover { transform: scale(1.02); box-shadow: 0 8px 25px var(--primary-glow); }
+        
+        .flip-text { text-align: center; margin-top: 15px; color: var(--text-muted); font-size: 14px; }
+        .flip-text span { color: var(--primary); cursor: pointer; font-weight: 600; transition: 0.3s; }
+        .flip-text span:hover { text-decoration: underline; }
+        
+        .close-modal-btn {
+            position: absolute; top: 15px; right: 20px; color: var(--text-muted); font-size: 24px; cursor: pointer; transition: 0.5s;
+        }
+        .close-modal-btn:hover { color: white; transform: rotate(180deg) scale(1.2); }
+
+        /* --- TRACKER --- */
         .tracker-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:2000; display:none; justify-content:center; align-items:center; backdrop-filter: blur(8px); }
         .tracker-box { background: var(--bg-card); width: 90%; max-width: 600px; padding: 30px; border-radius: 16px; border: 1px solid var(--border-color); position: relative; box-shadow: 0 0 60px rgba(0,0,0,0.8); }
         .tracker-box h2 { font-family:'Playfair Display', serif; color:var(--primary); text-align:center; margin-bottom:10px; }
@@ -199,10 +236,12 @@
         .footer-col a:hover { color: var(--primary); }
         .footer-bottom { border-top: 1px solid #222; padding-top: 20px; text-align: center; color: #555; font-size: 13px; }
 
+        @media(max-width: 992px) {
+            .brand-text { display: block; }
+        }
         @media(max-width: 768px) {
-            .nav-links { display: none; } .bottom-nav { display: flex; }
-            .hero h1 { font-size: 2.5rem; } .detail-wrapper { grid-template-columns: 1fr; }
-            main { padding-bottom: 80px; }
+            .nav-links { display: none; } .hero h1 { font-size: 2.5rem; } .detail-wrapper { grid-template-columns: 1fr; } 
+            .grid-2, .product-grid { grid-template-columns: 1fr; } .flip-container { height: 480px; }
         }
     </style>
 </head>
@@ -250,14 +289,6 @@
         </div>
     </header>
 
-    <!-- MOBILE BOTTOM NAV -->
-    <nav class="bottom-nav">
-        <div class="nav-item active" onclick="navigatePage('home')"><i class="fas fa-home"></i><span>Home</span></div>
-        <div class="nav-item" onclick="navigatePage('shop')"><i class="fas fa-store"></i><span>Shop</span></div>
-        <div class="nav-item" onclick="navigatePage('cart')"><i class="fas fa-shopping-cart"></i><span>Cart <span class="badge" id="cartCountMobile" style="background:#ff4757; color:white; border-radius:50%; padding:0 5px; font-size:9px;">0</span></span></div>
-        <div class="nav-item" onclick="navigatePage('profile')"><i class="fas fa-user"></i><span>Profile</span></div>
-    </nav>
-
     <main>
         <!-- 1. HOME -->
         <section id="home" class="page active">
@@ -272,9 +303,9 @@
             <div class="content-block">
                 <h2 class="section-title reveal">Why PN RISE?</h2>
                 <div class="feature-grid">
-                    <div class="feature-card reveal"><div class="feature-icon"><i class="fas fa-seedling"></i></div><h3>100% Natural</h3><p>Sourced directly from organic farms in Bihar.</p></div>
-                    <div class="feature-card reveal"><div class="feature-icon"><i class="fas fa-hand-sparkles"></i></div><h3>Handcrafted</h3><p>Freshly ground in small batches for maximum potency.</p></div>
-                    <div class="feature-card reveal"><div class="feature-icon"><i class="fas fa-leaf"></i></div><h3>Ayurvedic</h3><p>Formulated using ancient recipes for radiant skin.</p></div>
+                    <div class="feature-card reveal"><div class="feature-icon"><i class="fas fa-seedling"></i></div><h3>100% Natural</h3><p style="color:var(--text-muted);">Sourced directly from organic farms in Bihar.</p></div>
+                    <div class="feature-card reveal"><div class="feature-icon"><i class="fas fa-hand-sparkles"></i></div><h3>Handcrafted</h3><p style="color:var(--text-muted);">Freshly ground in small batches for maximum potency.</p></div>
+                    <div class="feature-card reveal"><div class="feature-icon"><i class="fas fa-leaf"></i></div><h3>Ayurvedic</h3><p style="color:var(--text-muted);">Formulated using ancient recipes for radiant skin.</p></div>
                 </div>
             </div>
         </section>
@@ -310,23 +341,19 @@
         <section id="profile" class="page">
             <div class="profile-container">
                 <h2 class="section-title" style="text-align:left; font-size:1.8rem;">My Account Dashboard</h2>
-                
                 <div class="dash-section reveal">
                     <h3>Personal Information</h3>
                     <div class="info-row"><label>Full Name</label><span id="dashName">Guest</span></div>
                     <div class="info-row"><label>Email</label><span id="dashEmail">Not Logged In</span></div>
                 </div>
-
                 <div class="dash-section reveal">
                     <h3>Manage Addresses <button class="mini-btn" onclick="openPopup('address')">+ Add New</button></h3>
                     <div id="addressListContainer"><p style="color:var(--text-muted); font-size:14px;">No addresses saved yet.</p></div>
                 </div>
-
                 <div class="dash-section reveal">
                     <h3>Saved Cards <button class="mini-btn" onclick="openPopup('card')">+ Add New Card</button></h3>
                     <div id="cardListContainer"><p style="color:var(--text-muted); font-size:14px;">No cards saved yet.</p></div>
                 </div>
-
                 <div class="dash-section reveal">
                     <h3>My Orders</h3>
                     <div id="orderListContainer"><p style="color:var(--text-muted); text-align:center; padding:20px;">No orders placed yet.</p></div>
@@ -334,17 +361,17 @@
             </div>
         </section>
 
-        <!-- 5. ABOUT / CONTACT -->
+        <!-- 5. ABOUT US (Fixed & Dynamic) -->
         <section id="about" class="page">
             <div class="content-block">
                 <h2 class="section-title reveal">The Story of PN RISE</h2>
-                <div style="background:var(--bg-card); padding:40px; border-radius:16px; border:1px solid var(--border-color); line-height:1.8;">
-                    <p class="reveal">Welcome to PN RISE, where <strong>ancient Ayurvedic wisdom</strong> meets <strong>modern skincare science</strong>.</p>
-                    <p class="reveal">Based in the heart of <strong>Vaishali, Bihar</strong>, our mission is to provide chemical-free skincare solutions for every skin type.</p>
+                <div class="about-box reveal">
+                    <p style="font-size:17px; margin-bottom:20px;"><i class="fas fa-quote-left" style="color:var(--primary); margin-right:10px;"></i> Welcome to PN RISE, where <strong>ancient Ayurvedic wisdom</strong> meets <strong>modern skincare science</strong>. We believe that true beauty comes from within, and the healthiest skin is nurtured by nature.</p>
+                    <p style="font-size:17px; margin-bottom:20px;">Based in the heart of <strong>Vaishali, Bihar</strong>, we handcraft every face pack in small batches using 100% natural ingredients sourced directly from local farmers. Our mission is to provide chemical-free, pure, and effective skincare solutions for every skin type.</p>
                     <div class="reveal" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:30px; margin-top:40px; text-align:center; background:#0f0f0f; padding:30px; border-radius:12px;">
-                        <div><h3 style="color:var(--primary); font-size:28px;">100%</h3><p>Natural Herbs</p></div>
-                        <div><h3 style="color:var(--primary); font-size:28px;">Zero</h3><p>Chemicals</p></div>
-                        <div><h3 style="color:var(--primary); font-size:28px;">500+</h3><p>Happy Customers</p></div>
+                        <div><h3 style="color:var(--primary); font-size:28px;">100%</h3><p style="color:var(--text-muted);">Natural Herbs</p></div>
+                        <div><h3 style="color:var(--primary); font-size:28px;">Zero</h3><p style="color:var(--text-muted);">Chemicals</p></div>
+                        <div><h3 style="color:var(--primary); font-size:28px;">500+</h3><p style="color:var(--text-muted);">Happy Customers</p></div>
                     </div>
                 </div>
             </div>
@@ -356,11 +383,14 @@
                 <h2 class="section-title reveal">Get In Touch</h2>
                 <div class="grid-2">
                     <div class="info-box reveal-left">
-                        <h3 style="color:var(--primary); font-size:18px;"><i class="fas fa-map-marker-alt"></i> Our Office</h3>
+                        <h3 style="color:var(--primary); font-size:18px; margin-bottom:15px;"><i class="fas fa-map-marker-alt"></i> Our Corporate Office</h3>
                         <p style="line-height:1.8;">BLOCK- JANDAHA, W/O NARESH RAM<br>Village - Rampur Chaklala, PO- Jandaha<br>Vaishali, Bihar - <strong>844505</strong></p>
+                        <br>
+                        <h3 style="color:var(--primary); font-size:18px; margin-bottom:15px;"><i class="fas fa-phone-alt"></i> Customer Support</h3>
+                        <p>📞 +91-70000-00000<br>✉️ support@pnrise.in</p>
                     </div>
                     <form class="contact-form info-box reveal-right" id="contactForm">
-                        <h3 style="color:var(--primary); font-size:20px;">Send us a Message</h3>
+                        <h3 style="color:var(--primary); font-size:20px; margin-bottom:15px;">Send us a Message</h3>
                         <input type="text" placeholder="Your Name *" required>
                         <input type="email" placeholder="Your Email *" required>
                         <textarea rows="4" placeholder="Describe your query in detail... *" required></textarea>
@@ -370,7 +400,7 @@
             </div>
         </section>
 
-        <!-- 7. DYNAMIC CART & CHECKOUT -->
+        <!-- 7. CART -->
         <section id="cart" class="page">
             <div class="cart-wrapper">
                 <h2 style="color:var(--primary); font-size:28px; margin-bottom:20px;">Shopping Cart</h2>
@@ -381,8 +411,6 @@
                         <div class="step-tab active" id="step1Tab">1. Details</div>
                         <div class="step-tab" id="step2Tab">2. Payment</div>
                     </div>
-
-                    <!-- STEP 1: Address -->
                     <div class="checkout-step-content active" id="step1Content">
                         <h3 style="color:var(--primary); margin-bottom:10px;">Delivery Address</h3>
                         <label>Full Name *</label>
@@ -395,25 +423,20 @@
                         <input type="text" id="chkAddress" placeholder="Village Rampur Chaklala, PO-Jandaha">
                         <button class="cta-btn" style="width:100%; margin-top:10px;" onclick="goToPayment()">Continue to Payment</button>
                     </div>
-
-                    <!-- STEP 2: Payment -->
                     <div class="checkout-step-content" id="step2Content">
                         <h3 style="color:var(--primary); margin-bottom:15px;">Payment Method</h3>
-                        
                         <div class="payment-option-box" onclick="selectPayment(this, 'cod')">
                             <input type="radio" name="payMethod" value="cod"> 
                             <div><i class="fas fa-money-bill-wave" style="color:var(--primary);"></i> <span>Cash on Delivery</span></div>
                         </div>
-                        
                         <div class="payment-option-box" onclick="selectPayment(this, 'upi')">
                             <input type="radio" name="payMethod" value="upi"> 
-                            <div><i class="fas fa-mobile-alt" style="color:var(--primary);"></i> <span>UPI (PhonePe / Google Pay / Navi)</span></div>
+                            <div><i class="fas fa-mobile-alt" style="color:var(--primary);"></i> <span>UPI (PhonePe / Google Pay)</span></div>
                         </div>
                         <div id="upiField" style="display:none; margin-top:10px;">
                             <label>Enter your UPI ID</label>
                             <input type="text" placeholder="user@phonepe">
                         </div>
-
                         <div class="payment-option-box" onclick="selectPayment(this, 'card')">
                             <input type="radio" name="payMethod" value="card"> 
                             <div><i class="fas fa-credit-card" style="color:var(--primary);"></i> <span>Debit / Credit Card</span></div>
@@ -426,7 +449,6 @@
                                 <div style="flex:1;"><label>CVV</label><input type="password" placeholder="***"></div>
                             </div>
                         </div>
-
                         <button class="cta-btn" style="width:100%; margin-top:20px; font-size:16px;" onclick="placeOrder()">Confirm & Place Order</button>
                         <p style="text-align:center; font-size:12px; color:#888; margin-top:10px; cursor:pointer;" onclick="goToDetails()">← Back to Address</p>
                     </div>
@@ -435,13 +457,12 @@
         </section>
     </main>
 
-    <!-- 3D FLIP LOGIN / SIGNUP MODALS (FIXED) -->
+    <!-- 3D FLIP LOGIN MODAL (FIXED) -->
     <div class="modal-overlay" id="authModal">
         <div class="flip-container" id="flipContainer">
             <div class="flip-inner">
-                <!-- LOGIN FRONT -->
                 <div class="flip-front">
-                    <span class="close-modal-btn" onclick="closeModal()" style="position:absolute; top:15px; right:20px; color:#888; font-size:24px; cursor:pointer;">&times;</span>
+                    <span class="close-modal-btn" onclick="closeModal()">&times;</span>
                     <h2>Welcome Back</h2>
                     <div class="input-group">
                         <input type="text" id="loginUser" placeholder=" ">
@@ -456,9 +477,8 @@
                         New here? <span onclick="flipCard()">Create Account</span>
                     </div>
                 </div>
-                <!-- SIGNUP BACK -->
                 <div class="flip-back">
-                    <span class="close-modal-btn" onclick="closeModal()" style="position:absolute; top:15px; right:20px; color:#888; font-size:24px; cursor:pointer;">&times;</span>
+                    <span class="close-modal-btn" onclick="closeModal()">&times;</span>
                     <h2>Join Us</h2>
                     <div class="input-group">
                         <input type="text" id="signupName" placeholder=" ">
@@ -490,7 +510,6 @@
         <div class="popup-box">
             <span onclick="closePopup()" style="position:absolute; top:15px; right:20px; cursor:pointer; color:#888; font-size:22px;">&times;</span>
             <h3 id="popupTitle">Add New</h3>
-            
             <div id="addressForm">
                 <input type="text" id="newAddrName" placeholder="Full Name">
                 <input type="text" id="newAddrPhone" placeholder="Phone Number">
@@ -499,7 +518,6 @@
                 <input type="text" id="newAddrPincode" placeholder="Pincode">
                 <button onclick="saveAddress()">Save Address</button>
             </div>
-
             <div id="cardForm" style="display:none;">
                 <input type="text" id="newCardNumber" placeholder="Card Number">
                 <input type="text" id="newCardExp" placeholder="Expiry (MM/YY)">
@@ -545,7 +563,6 @@
 
     <!-- --- WEBSITE LOGIC --- -->
     <script>
-        // --- DATA ---
         const productImageLink = "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?q=80&w=600&auto=format&fit=crop";
         const products = [
             { id: 1, name: 'Herbal Trio Glow Pack', price: 599, old: 799, desc: 'Beetroot, Neem & Rice.',
@@ -566,44 +583,29 @@
         let orders = []; let orderCounter = 0;
         let userAddresses = []; let userCards = [];
 
-        // --- INIT ---
         window.onload = function() {
-            // Load User
             const storedUser = localStorage.getItem('pn_user');
             if(storedUser) { const u = JSON.parse(storedUser); isLoggedIn = true; currentUser = u; updateUI(u.name, u.email); }
-            
-            // Load Data
             if(localStorage.getItem('pn_orders')) orders = JSON.parse(localStorage.getItem('pn_orders'));
             if(localStorage.getItem('pn_addresses')) userAddresses = JSON.parse(localStorage.getItem('pn_addresses'));
             if(localStorage.getItem('pn_cards')) userCards = JSON.parse(localStorage.getItem('pn_cards'));
-            
             orderCounter = orders.length;
             renderShop();
             if(isLoggedIn) { renderProfileData(); }
         };
 
-        // --- NAVIGATION ---
         function navigatePage(id) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(id).classList.add('active');
-            
             document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
             const navMap = {'home':0, 'shop':1, 'about':2, 'contact':3};
             const navs = document.querySelectorAll('.nav-links a');
             if(navMap[id] !== undefined) navs[navMap[id]].classList.add('active');
-            
-            // Update Mobile Nav
-            document.querySelectorAll('.bottom-nav .nav-item').forEach(el => el.classList.remove('active'));
-            const mobileMap = {'home':0, 'shop':1, 'cart':2, 'profile':3};
-            const mobiles = document.querySelectorAll('.bottom-nav .nav-item');
-            if(mobileMap[id] !== undefined) mobiles[mobileMap[id]].classList.add('active');
-
             if(id === 'cart') renderCart();
             if(id === 'profile') renderProfileData();
             document.getElementById('userDropdown').classList.remove('open');
         }
 
-        // --- SHOP & SEARCH ---
         function searchProducts() {
             const input = document.getElementById('searchInput').value.toLowerCase().trim();
             const grid = document.getElementById('shopGrid');
@@ -649,7 +651,6 @@
             navigatePage('detail');
         }
 
-        // --- AUTH ---
         function toggleDropdown() { document.getElementById('userDropdown').classList.toggle('open'); }
         function navigateAndClose(page) {
             if(isLoggedIn) navigatePage(page);
@@ -674,7 +675,7 @@
             if(n && e && u && p) {
                 localStorage.setItem('pn_user', JSON.stringify({name:n, email:e, username:u, pass:p}));
                 alert("Account created! Please login."); 
-                flipCard(); // Flip to login side
+                flipCard();
             } else alert("Please fill all fields.");
         }
         function handleLogin() {
@@ -698,18 +699,15 @@
             document.getElementById('dashEmail').innerText = isLoggedIn ? email : 'Not Logged In';
         }
 
-        // --- CART LOGIC ---
         function addToCart(id) {
-            if(!isLoggedIn) { openModal(); return; } // Shows the beautiful modal now!
+            if(!isLoggedIn) { openModal(); return; } // Shows beautiful modal
             const p = products.find(x => x.id === id);
-            // Allow adding multiple same items
-            cart.push(p);
+            cart.push(p); // Allow adding multiple
             updateCartUI();
             if(document.getElementById('detail').classList.contains('active')) alert(`${p.name} added to cart!`);
         }
         function updateCartUI() {
             document.getElementById('cartCount').innerText = cart.length;
-            document.getElementById('cartCountMobile').innerText = cart.length;
             renderCart();
         }
         function renderCart() {
@@ -719,14 +717,11 @@
                 container.innerHTML = '<p style="text-align:center; color:var(--text-muted); padding:40px;">Your cart is empty.</p>';
                 checkout.style.display = 'none'; return;
             }
-            
-            // Group cart items by ID to calculate quantity
             const grouped = cart.reduce((acc, item) => {
                 if(!acc[item.id]) acc[item.id] = { ...item, qty: 0 };
                 acc[item.id].qty++;
                 return acc;
             }, {});
-
             let html = '', total = 0;
             Object.values(grouped).forEach(item => {
                 const itemTotal = item.price * item.qty;
@@ -738,14 +733,12 @@
             checkout.style.display = 'block';
         }
 
-        // --- MULTI-STEP CHECKOUT ---
         function goToPayment() {
             const name = document.getElementById('chkName').value.trim();
             const phone = document.getElementById('chkPhone').value.trim();
             const pincode = document.getElementById('chkPincode').value.trim();
             const address = document.getElementById('chkAddress').value.trim();
             if(!name || !phone || !pincode || !address) { alert("Please fill in all address fields."); return; }
-            
             document.getElementById('step1Tab').classList.remove('active');
             document.getElementById('step2Tab').classList.add('active');
             document.getElementById('step1Content').classList.remove('active');
@@ -761,25 +754,16 @@
             document.querySelectorAll('.payment-option-box').forEach(b => b.classList.remove('selected'));
             el.classList.add('selected');
             el.querySelector('input[type="radio"]').checked = true;
-            
             document.getElementById('upiField').style.display = (type === 'upi') ? 'block' : 'none';
             document.getElementById('cardFields').style.display = (type === 'card') ? 'block' : 'none';
         }
 
-        // --- PROFILE DATA ---
         function renderProfileData() {
-            renderAddresses();
-            renderCards();
-            renderOrders();
+            renderAddresses(); renderCards(); renderOrders();
         }
-
-        // Addresses
         function renderAddresses() {
             const container = document.getElementById('addressListContainer');
-            if(userAddresses.length === 0) {
-                container.innerHTML = '<p style="color:var(--text-muted); font-size:14px;">No addresses saved yet.</p>';
-                return;
-            }
+            if(userAddresses.length === 0) { container.innerHTML = '<p style="color:var(--text-muted); font-size:14px;">No addresses saved yet.</p>'; return; }
             container.innerHTML = userAddresses.map((a, i) => `
                 <div class="address-item">
                     <div><strong>${a.name}</strong><br>${a.street}, ${a.city}, ${a.pincode}<br><span style="font-size:12px; color:#888;">Phone: ${a.phone}</span></div>
@@ -818,14 +802,9 @@
                 renderAddresses();
             }
         }
-
-        // Cards
         function renderCards() {
             const container = document.getElementById('cardListContainer');
-            if(userCards.length === 0) {
-                container.innerHTML = '<p style="color:var(--text-muted); font-size:14px;">No cards saved yet.</p>';
-                return;
-            }
+            if(userCards.length === 0) { container.innerHTML = '<p style="color:var(--text-muted); font-size:14px;">No cards saved yet.</p>'; return; }
             container.innerHTML = userCards.map((c, i) => `
                 <div class="card-item">
                     <div><i class="fas fa-credit-card" style="color:var(--primary);"></i> **** **** **** ${c.number.slice(-4)} <span style="font-size:12px; color:#888;">Exp: ${c.exp}</span></div>
@@ -852,7 +831,6 @@
             }
         }
 
-        // --- ORDERS & TIME-BASED TRACKING ---
         function placeOrder() {
             if(!isLoggedIn) { alert("Please login."); openModal(); return; }
             const name = document.getElementById('chkName').value.trim();
@@ -860,43 +838,24 @@
             const pincode = document.getElementById('chkPincode').value.trim();
             const address = document.getElementById('chkAddress').value.trim();
             if(!name || !phone || !pincode || !address) { alert("Address missing."); goToDetails(); return; }
-
             orderCounter++;
             const orderId = `PN-${String(orderCounter).padStart(4, '0')}`;
-            
-            // Assign a realistic start time
             const orderDate = new Date();
-            
-            const order = { 
-                id: orderId, 
-                date: orderDate.toLocaleString(), 
-                timestamp: orderDate.getTime(),
-                items: [...cart], 
-                total: cart.reduce((s,i)=>s+i.price, 0), 
-                address: `${name}, ${address}, ${pincode}, ${phone}` 
-            };
+            const order = { id: orderId, date: orderDate.toLocaleString(), timestamp: orderDate.getTime(), items: [...cart], total: cart.reduce((s,i)=>s+i.price, 0), address: `${name}, ${address}, ${pincode}, ${phone}` };
             orders.push(order);
             localStorage.setItem('pn_orders', JSON.stringify(orders));
-            
             alert(`✅ Order ${orderId} placed successfully! Check Profile -> My Orders to track it.`);
-            cart = []; 
-            updateCartUI();
-            navigatePage('profile'); renderOrders();
+            cart = []; updateCartUI(); navigatePage('profile'); renderOrders();
         }
 
         function renderOrders() {
             const container = document.getElementById('orderListContainer');
             const stored = localStorage.getItem('pn_orders');
             if(stored) orders = JSON.parse(stored);
-
-            if(orders.length === 0) {
-                container.innerHTML = '<p style="color:var(--text-muted); text-align:center; padding:20px;">No orders placed yet.</p>';
-                return;
-            }
+            if(orders.length === 0) { container.innerHTML = '<p style="color:var(--text-muted); text-align:center; padding:20px;">No orders placed yet.</p>'; return; }
             container.innerHTML = orders.slice().reverse().map((order, index) => {
                 const statusText = getDynamicStatus(order.timestamp);
                 const textColor = statusText === 'Delivered' ? 'var(--primary)' : 'var(--primary)';
-                
                 return `
                     <div class="order-history-card">
                         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:10px;">
@@ -914,27 +873,21 @@
             }).join('');
         }
 
-        // --- DYNAMIC STATUS TIMING ---
         function getDynamicStatus(timestamp) {
             const now = Date.now();
-            const diffMinutes = (now - timestamp) / (1000 * 60); // Minutes since order
-            
-            // 5 Phases: Placed -> Processed -> Shipped -> Out for Delivery -> Delivered
-            // Simulating time passing. 
-            if (diffMinutes < 1) return 'Placed';          // Less than 1 min
-            if (diffMinutes < 2) return 'Processed';      // 1-2 mins
-            if (diffMinutes < 4) return 'Shipped';        // 2-4 mins
-            if (diffMinutes < 6) return 'Out for Delivery'; // 4-6 mins
-            return 'Delivered';                           // After 6 mins
+            const diffMinutes = (now - timestamp) / (1000 * 60);
+            if (diffMinutes < 1) return 'Placed';
+            if (diffMinutes < 2) return 'Processed';
+            if (diffMinutes < 4) return 'Shipped';
+            if (diffMinutes < 6) return 'Out for Delivery';
+            return 'Delivered';
         }
 
         function openTracker(index) {
             const order = orders.slice().reverse()[index];
             if(!order) return;
             document.getElementById('trackerIdDisplay').innerText = `Tracking Order #${order.id}`;
-            
             const currentStatus = getDynamicStatus(order.timestamp);
-            
             const steps = [
                 { label: 'Order Placed', desc: `Received at ${order.date}` },
                 { label: 'Order Processed', desc: 'Order confirmed and packaging started.' },
@@ -942,46 +895,26 @@
                 { label: 'Out for Delivery', desc: 'Delivery executive is on route.' },
                 { label: 'Order Delivered', desc: 'Package handed over successfully.' }
             ];
-
             let html = '';
             let foundActive = false;
-            
             steps.forEach((step, index) => {
-                let isCompleted = false;
-                let isActive = false;
-
-                if (currentStatus === 'Delivered') {
-                    isCompleted = true;
-                } else {
-                    if (step.label === currentStatus) {
-                        isActive = true;
-                        foundActive = true;
-                    } else if (!foundActive) {
-                        isCompleted = true;
-                    }
+                let isCompleted = false; let isActive = false;
+                if (currentStatus === 'Delivered') { isCompleted = true; } 
+                else {
+                    if (step.label === currentStatus) { isActive = true; foundActive = true; } 
+                    else if (!foundActive) { isCompleted = true; }
                 }
-
-                html += `
-                    <div class="track-step-item ${isCompleted ? 'completed' : ''} ${isActive ? 'active' : ''}">
-                        <div class="step-dot"></div>
-                        <div class="step-text">${step.label}</div>
-                        <div class="step-desc">${step.desc}</div>
-                    </div>
-                `;
+                html += `<div class="track-step-item ${isCompleted ? 'completed' : ''} ${isActive ? 'active' : ''}"><div class="step-dot"></div><div class="step-text">${step.label}</div><div class="step-desc">${step.desc}</div></div>`;
             });
-            
             document.getElementById('trackerTimeline').innerHTML = html;
-            
             const footer = document.getElementById('trackerFooter');
             if(currentStatus === 'Delivered') footer.innerHTML = '✅ Your order has been <strong style="color:var(--primary);">Delivered</strong>.';
             else if(currentStatus === 'Out for Delivery') footer.innerHTML = '🚚 Your package is <strong style="color:var(--primary);">Out for Delivery</strong>. Expected today!';
             else if(currentStatus === 'Shipped') footer.innerHTML = '📦 In Transit. Estimated Delivery: <strong style="color:var(--primary);">2-3 Business Days</strong>';
             else footer.innerHTML = '⏳ Being prepared. Estimated Delivery: <strong style="color:var(--primary);">3-5 Business Days</strong>';
-
             document.getElementById('trackerModal').style.display = 'flex';
         }
 
-        // --- CONTACT FORM ---
         function submitContactForm(e) {
             e.preventDefault();
             const btn = document.querySelector('#contactForm button');
